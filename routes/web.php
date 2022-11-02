@@ -52,7 +52,6 @@ use App\Http\Controllers\WaysToBookController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
 // php artosan optimize
 Route::get('/optimize', function () {
     Artisan::call('optimize');
@@ -114,6 +113,23 @@ Route::get('/clear-compiled', function () {
 
 // php artisan optimize:clear
 
+
+// php artisan clear-compiled
+
+// Route::get('/currency/{val}', function ($val) {
+//     if($val=='USD'){
+//         Session::put('currency_word',$val);
+//         $val = 'price';
+//     }elseif($val=='RUR'){
+//         Session::put('currency_word','RUB');
+//     }
+//     else{
+//         Session::put('currency_word',$val);
+//     }
+//     Session::put('currency',$val);
+//     return redirect()->back();
+//     //Return anything
+// });
 
 
 

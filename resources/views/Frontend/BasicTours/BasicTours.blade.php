@@ -71,7 +71,12 @@
                                     </div>
 
                                     <div class="packageOffer">
-                                        <span><i class="fa-solid fa-dollar-sign"></i></span> {{ $item->AMD }} {{ __('AMD') }}
+                                        <span><i class="fa-solid fa-dollar-sign"></i></span>
+                                        @if(Session::has('currency'))
+                                            {{ $item[Session::get('currency')] }} {{ __(Session::get('currency_word')) }}
+                                        @else
+                                        {{ $item->price }} {{ __('USD') }}
+                                        @endif 
                                     </div>
                                 </div>
                                 <div class="rating">

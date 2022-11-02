@@ -136,20 +136,31 @@
                                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
                                          role="button" data-toggle="dropdown" aria-haspopup="true"
                                          aria-expanded="false">
+                                         @if(Session::has('currency'))
+                                            @if(Session::get('currency')=='price')
+                                                USD
+                                            @elseif(Session::get('currency')=='RUR')
+                                                RUB
+                                            @else
+                                                {{Session::get('currency')}}
+                                            @endif
+                                         @else 
                                          USD
+                                         @endif
+
                                      </a>
                                      {{-- @php($params = array_merge(request()->route()->parameters, ['currency_locale' => $lang])) --}}
                                      <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="width: auto">
-                                         <a class="dropdown-item" href="{{ url('/AMD') }}">
+                                         <a class="dropdown-item" href="{{ url('/currency/AMD') }}">
                                              AMD
                                          </a>
-                                         <a class="dropdown-item" href="{{ url('/EUR') }}">
+                                         <a class="dropdown-item" href="{{ url('/currency/EURO') }}">
                                              EUR
                                          </a>
-                                         <a class="dropdown-item" href="{{ url('/USD') }}">
+                                         <a class="dropdown-item" href="{{ url('/currency/USD') }}">
                                              USD
                                          </a>
-                                         <a class="dropdown-item" href="{{ url('/RUB') }}">
+                                         <a class="dropdown-item" href="{{ url('/currency/RUR') }}">
                                              RUB
                                          </a>
                                      </div>
@@ -158,10 +169,10 @@
                                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
                                          role="button" data-toggle="dropdown" aria-haspopup="true"
                                          aria-expanded="false">
-                                         {{ __('English') }}
+                                             {{ __(array_search(app()->getLocale(), config('app.available_locales'))) }}
                                      </a>
                                      <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="width: auto">
-                                         <a class="dropdown-item" href="{{ url(url()->current() . '/' . 'ru') }}">
+                                         <a class="dropdown-item" href="{{ $urlForLocal }}/ru">
                                              Русский <img
                                                  src="https://upload.wikimedia.org/wikipedia/en/thumb/f/f3/Flag_of_Russia.svg/1200px-Flag_of_Russia.svg.png"
                                                  alt="" style="width: 20px; height:20px">
@@ -169,7 +180,7 @@
 
 
 
-                                         <a class="dropdown-item" href="{{ url(url()->current() . '/' . 'en') }}">
+                                         <a class="dropdown-item" href="{{ $urlForLocal }}/en">
                                              {{ __('English') }}
 
                                              <img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/1200px-Flag_of_the_United_States.svg.png"
@@ -177,7 +188,7 @@
 
                                          </a>
 
-                                         <a class="dropdown-item" href="{{ url(url()->current() . '/' . 'hy') }}">
+                                         <a class="dropdown-item" href="{{ $urlForLocal }}/hy">
                                              Հայերեն <img src="https://www.worldatlas.com/img/flag/am-flag.jpg"
                                                  alt="" style="width: 20px; height:20px">
                                          </a>

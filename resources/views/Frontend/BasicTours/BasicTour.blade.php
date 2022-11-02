@@ -121,7 +121,11 @@
                             {{ __('Price') }}
                         </div>
                         <div>
-                            <span>{{ __($tour->price) }}</span>
+                            @if(Session::has('currency'))
+                                {{ $tour[Session::get('currency')] }} {{ __(Session::get('currency_word')) }}
+                            @else
+                                {{ $tour->price }} {{ __('USD') }}
+                            @endif 
                         </div>
                     </div>
                 </div>
