@@ -86,6 +86,9 @@
                 <li>
                     <a href="{{ url('/admin/destination') }}"><i class="fe fe-users"></i> <span>Control Destination</span></a>
                 </li>
+                <li>
+                    <a href="{{ url('/admin/currency/setting') }}"><i class="fa fa-dollar"></i> <span>Currency Setting</span></a>
+                </li>
             </ul>
         </div>
     </div>

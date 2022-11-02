@@ -49,6 +49,7 @@ use App\Http\Controllers\UsefulInfoController;
 use App\Http\Controllers\VacancyCmsController;
 use App\Http\Controllers\VacancyController;
 use App\Http\Controllers\WaysToBookController;
+use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -147,6 +148,10 @@ Route::get('/AddReview/', [ReviewController::class, 'create']);
 Route::post('/review/store', [ReviewController::class, 'store']);
 
 Route::group(['middleware' => ['admin']], function () {
+
+    //========currency ==========
+    Route::get('/admin/currency/setting', [SettingController::class, 'currencyIndex']);
+    Route::post('/admin/currency/store', [SettingController::class, 'currencyStore']);
 
 
     //========Home ==========
@@ -699,6 +704,7 @@ Route::get('/TourFrontPage', function () {
     return view('Frontend.Tours.Tour');
 });
 
+//currency
 
 
 
