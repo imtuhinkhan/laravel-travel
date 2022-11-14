@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Image;
 use App\Models\ThingsToDo;
+use App\Models\ThingsToDoAm;
+use App\Models\ThingsToDoRu;
 use App\Models\ThingsToDoCategory;
 use Illuminate\Http\Request;
 use Exception;
@@ -126,11 +128,62 @@ class ThingsToDoController extends Controller
             "period" => $request->period,
             "distance" => $request->distance,
             "price" => $request->price,
+            "map" => $request->map,
             "category_id" => $request->category_id,
         ]);
 
 
         foreach ($request->file('images') as  $image) {
+
+            $imageName = $image->getClientOriginalName();
+            $image->move("ThingsToDo/" . $things->id . "/", $imageName);
+            $image = new Image();
+            $image["filename"] = $imageName;
+            $image["path"] = "ThingsToDo/" . $things->id . "/" . $imageName;
+            $image->save();
+            $things->images()->attach($image->id);
+        }
+
+        $things = ThingsToDoAm::create([
+            "name" => $request->name_am,
+            "description" => $request->description_am,
+            "time" => $request->time_am,
+            "address" => $request->address_am,
+            "duration" => $request->duration_am,
+            "period" => $request->period_am,
+            "distance" => $request->distance_am,
+            "price" => $request->price_am,
+            "map" => $request->map_am,
+            "category_id" => $request->category_id_am,
+        ]);
+
+
+        foreach ($request->file('images_am') as  $image) {
+
+            $imageName = $image->getClientOriginalName();
+            $image->move("ThingsToDo/" . $things->id . "/", $imageName);
+            $image = new Image();
+            $image["filename"] = $imageName;
+            $image["path"] = "ThingsToDo/" . $things->id . "/" . $imageName;
+            $image->save();
+            $things->images()->attach($image->id);
+        }
+
+        $things = ThingsToDoRu::create([
+            "name" => $request->name_ru,
+            "description" => $request->description_ru,
+            "time" => $request->time_ru,
+            "address" => $request->address_ru,
+            "duration" => $request->duration_ru,
+            "period" => $request->period_ru,
+            "distance" => $request->distance_ru,
+            "price" => $request->price_ru,
+            "map" => $request->map_ru,
+            "category_id" => $request->category_id_ru,
+        ]);
+
+
+        foreach ($request->file('images_ru') as  $image) {
 
             $imageName = $image->getClientOriginalName();
             $image->move("ThingsToDo/" . $things->id . "/", $imageName);
@@ -164,6 +217,7 @@ class ThingsToDoController extends Controller
             "period" => "required|string",
             "distance" => "required|string",
             "price" => "required",
+            "map" => "required",
             "category_id" => "required|string",
 
         ]);
@@ -176,15 +230,45 @@ class ThingsToDoController extends Controller
         }
         try {
 
-            DB::beginTransaction();
-
             $things = ThingsToDo::find($id);
-            $things->fill($request->all());
+            $things->name = $request->name;
+            $things->description = $request->description;
+            $things->time = $request->time;
+            $things->address = $request->address;
+            $things->duration = $request->duration;
+            $things->period = $request->period;
+            $things->distance = $request->distance;
+            $things->price = $request->price;
+            $things->map = $request->map;
+            $things->category_id = $request->category_id;
             $things->save();
-
-
-
-            DB::commit();
+    
+            $thingsRu = ThingsToDoRu::find($id);
+            $thingsRu->name = $request->name_ru;
+            $thingsRu->description = $request->description_ru;
+            $thingsRu->time = $request->time_ru;
+            $thingsRu->address = $request->address_ru;
+            $thingsRu->duration = $request->duration_ru;
+            $thingsRu->period = $request->period_ru;
+            $thingsRu->distance = $request->distance_ru;
+            $thingsRu->price = $request->price_ru;
+            $thingsRu->map = $request->map_ru;
+    
+            $thingsRu->category_id = $request->category_id_ru;
+            $thingsRu->save();
+    
+            $thingsAm = ThingsToDoAm::find($id);
+            $thingsAm->name = $request->name_am;
+            $thingsAm->description = $request->description_am;
+            $thingsAm->time = $request->time_am;
+            $thingsAm->address = $request->address_am;
+            $thingsAm->duration = $request->duration_am;
+            $thingsAm->period = $request->period_am;
+            $thingsAm->distance = $request->distance_am;
+            $thingsAm->price = $request->price_am;
+            $thingsAm->map = $request->map_am;
+            $thingsAm->category_id = $request->category_id_am;
+            $thingsAm->save();
 
             return redirect()
                 ->back()
@@ -201,7 +285,9 @@ class ThingsToDoController extends Controller
     {
         $categories = ThingsToDoCategory::all();
         $things = ThingsToDo::find($id);
-        return view('Backend.Admin.Armenia.ThingsToDo.update', compact('categories', 'things'));
+        $thingsAm = ThingsToDoAm::find($id);
+        $thingsRu = ThingsToDoRu::find($id);
+        return view('Backend.Admin.Armenia.ThingsToDo.update', compact('categories', 'things','thingsAm','thingsRu'));
     }
 
 
@@ -213,6 +299,10 @@ class ThingsToDoController extends Controller
 
             $things = ThingsToDo::find($id);
             $things->delete();
+            $thingsAm = ThingsToDoAm::find($id);
+            $thingsAm->delete();
+            $thingsRu = ThingsToDoRu::find($id);
+            $thingsRu->delete();
             DB::commit();
 
             return redirect()
@@ -231,7 +321,19 @@ class ThingsToDoController extends Controller
         if (isset($locale) && in_array($locale, config('app.available_locales'))) {
             app()->setLocale($locale);
         }
-        $things = ThingsToDo::with('images')->where('category_id', $id)->simplePaginate(6);
+
+        if(app()->getLocale()=='hy'){
+            $things = ThingsToAm::with('images')->where('category_id', $id)->simplePaginate(9);
+
+        }
+        elseif(app()->getLocale()=='ru'){
+            $things = ThingsToDoRu::with('images')->where('category_id', $id)->simplePaginate(9);
+
+
+        }else{
+            $things = ThingsToDo::with('images')->where('category_id', $id)->simplePaginate(9);
+
+        }
         $category = ThingsToDoCategory::where('id', $id)->first();
         return view('Frontend.Armenia.ThingsToDo', compact('things', 'category'));
     }
@@ -243,7 +345,15 @@ class ThingsToDoController extends Controller
         if (isset($locale) && in_array($locale, config('app.available_locales'))) {
             app()->setLocale($locale);
         }
-        $things = ThingsToDo::with('images')->where('id', $id)->first();
+        if(app()->getLocale()=='hy'){
+            $things = ThingsToDoAm::with('images')->where('id', $id)->first();
+        }
+        elseif(app()->getLocale()=='ru'){
+            $things = ThingsToDoRu::with('images')->where('id', $id)->first();
+
+        }else{
+            $things = ThingsToDo::with('images')->where('id', $id)->first();
+        }
         $related = ThingsToDo::where('related_id', $id)->inRandomOrder()->simplePaginate(3);
         return view('Frontend.Armenia.ThingsToDoDetails', compact('things', 'related'));
     }
@@ -254,7 +364,15 @@ class ThingsToDoController extends Controller
         if (isset($locale) && in_array($locale, config('app.available_locales'))) {
             app()->setLocale($locale);
         }
-        $things = ThingsToDo::with('images')->simplePaginate(6);
+        if(app()->getLocale()=='hy'){
+            $things = ThingsToDoAm::with('images')->simplePaginate(9);
+        }
+        elseif(app()->getLocale()=='ru'){
+            $things = ThingsToDoRu::with('images')->simplePaginate(9);
+
+        }else{
+            $things = ThingsToDo::with('images')->simplePaginate(9);
+        }
         return view('Frontend.Armenia.ThingsToDo', compact('things'));
     }
 }

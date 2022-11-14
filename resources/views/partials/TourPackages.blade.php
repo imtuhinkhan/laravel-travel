@@ -40,12 +40,8 @@
                                     
                                          
                                          <div class="packageOffer">
-                                             <span><i class="fa-solid fa-dollar-sign"></i></span>
-                                              @if(Session::has('currency'))
-                                                    {{ __($tour[Session::get('currency')]) }} {{ __(Session::get('currency_word')) }}
-                                                @else
-                                                    {{ __($tour->price) }} {{ __('USD') }}
-                                                @endif 
+                                             <span><i class="fa-solid {{currency_icon()}}"></i></span>
+                                              {{convert_currency($tour->price)}} {{ __(currency_word()) }}
                                          </div>
                                      
                                  </div>

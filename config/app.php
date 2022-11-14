@@ -83,6 +83,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        GoogleMaps\ServiceProvider\GoogleMapsServiceProvider::class,
     ],
 
 
@@ -129,6 +130,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'LaravelLocalization' => Mcamara\LaravelLocalization\Facades\LaravelLocalization::class,
         'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
+        'GoogleMaps' => GoogleMaps\Facade\GoogleMapsFacade::class,
     ],
 
 ];

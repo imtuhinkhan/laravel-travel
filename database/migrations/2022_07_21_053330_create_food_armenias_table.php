@@ -24,6 +24,7 @@ class CreateFoodArmeniasTable extends Migration
             $table->string('period');
             $table->string('distance');
             $table->decimal('price');
+            $table->text('map')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

@@ -8,6 +8,8 @@ use App\Models\HomeCMS;
 use App\Models\Meal;
 use App\Models\Review;
 use App\Models\Tour;
+use App\Models\TourRu;
+use App\Models\TourAm;
 use App\Models\TourCategory;
 use Illuminate\Http\Request;
 
@@ -115,15 +117,16 @@ class FrontendController extends Controller
         $home = HomeCMS::all();
         $destination = CreatorDestination::all();
         $creator = $request->session()->get('creator');
+        if(app()->getLocale()=='hy'){
+            $tours = TourAm::with('images')->with('category') ->whereNull('deleted_at')->with('types')->latest()->where('home_tour_id', 1)->take(3)->get();
+        }
+        elseif(app()->getLocale()=='ru'){
+            $tours = TourRu::with('images')->with('category') ->whereNull('deleted_at')->with('types')->latest()->where('home_tour_id', 1)->take(3)->get();
 
-        $tours = Tour::with('images')
-            ->with('category')
-            ->whereNull('deleted_at')
-            ->with('types')
-            ->latest()
-            ->where('home_tour_id', 1)
-            ->take(3)
-            ->get();
+        }else{
+            $tours = Tour::with('images')->with('category') ->whereNull('deleted_at')->with('types')->latest()->where('home_tour_id', 1)->take(3)->get();
+        }
+        
         $destinations = Destination::whereNull('deleted_at')
             ->get();
 

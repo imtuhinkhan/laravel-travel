@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\relatedTour;
 use App\Models\Review;
 use App\Models\Tour;
+use App\Models\TourRu;
+use App\Models\TourAm;
 use App\Models\TourCategory;
 use App\Models\TourCMS;
 use Illuminate\Http\Request;
@@ -17,8 +19,16 @@ class ClassicTour extends Controller
             app()->setLocale($locale);
         }
 
+        if(app()->getLocale()=='hy'){
+            $tour = TourAm::with('images')->with('types')->where('category_id', 1)->orderBy('id', 'DESC')->simplePaginate(9);
+        }
+        elseif(app()->getLocale()=='ru'){
+            $tour = TourRu::with('images')->with('types')->where('category_id', 1)->orderBy('id', 'DESC')->simplePaginate(9);
 
-        $tour = Tour::with('images')->with('types')->where('category_id', 1)->orderBy('id', 'DESC')->simplePaginate(9);
+        }else{
+            $tour = Tour::with('images')->with('types')->where('category_id', 1)->orderBy('id', 'DESC')->simplePaginate(9);
+            
+        }
 
         $category = TourCategory::where('id', 1)->first();
 
@@ -35,7 +45,9 @@ class ClassicTour extends Controller
         if (isset($locale) && in_array($locale, config('app.available_locales'))) {
             app()->setLocale($locale);
         }
-        $tour = Tour::with('images')
+
+        if(app()->getLocale()=='hy'){
+            $tour = TourAm::with('images')
             ->with('highlights')
             ->with('facility')
             ->with('program')
@@ -43,7 +55,30 @@ class ClassicTour extends Controller
             ->with('useful')
             ->with('departureTable')
             ->where('id', $id)->first();
+        }
+        elseif(app()->getLocale()=='ru'){
+          
+            $tour = TourRu::with('images')
+            ->with('highlights')
+            ->with('facility')
+            ->with('program')
+            ->with('types')
+            ->with('useful')
+            ->with('departureTable')
+            ->where('id', $id)->first();
+        }else{
 
+            $tour = Tour::with('images')
+            ->with('highlights')
+            ->with('facility')
+            ->with('program')
+            ->with('types')
+            ->with('useful')
+            ->with('departureTable')
+            ->where('id', $id)->first();
+         }
+
+         
         $category = TourCategory::where('id', 1)->first();
 
 

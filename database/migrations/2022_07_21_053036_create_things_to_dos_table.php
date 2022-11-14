@@ -24,6 +24,7 @@ class CreateThingsToDosTable extends Migration
             $table->string('duration');
             $table->string('period');
             $table->string('distance');
+            $table->longText('map')->nullable();
             $table->string('price');
             $table->softDeletes();
             $table->timestamps();

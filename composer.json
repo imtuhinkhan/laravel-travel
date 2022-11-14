@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "alexpechkarev/google-maps": "^9.0",
         "almasaeed2010/adminlte": "~3.2",
         "amrshawky/laravel-currency": "^5.0",
         "anhskohbo/no-captcha": "^3.4",
@@ -44,7 +45,10 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
-        }
+        },
+        "files":[
+            "app/helpers.php"
+        ]
     },
     "scripts": {
         "post-autoload-dump": [
