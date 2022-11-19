@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Image;
 use App\Models\Mice;
+use App\Models\MiceAm;
+use App\Models\MiceRu;
 use App\Models\MiceCMS;
 use Illuminate\Http\Request;
 
@@ -25,7 +27,9 @@ class MiceController extends Controller
     public function edit($id)
     {
         $mice = Mice::find($id);
-        return view('Backend.Admin.Services.MICE.update', compact('mice'));
+        $miceAm = MiceAm::find($id);
+        $miceRu = MiceRu::find($id);
+        return view('Backend.Admin.Services.MICE.update', compact('mice','miceAm', 'miceRu'));
     }
 
     public function store(Request $request)
@@ -40,6 +44,24 @@ class MiceController extends Controller
             'Extra' => 'required',
             'images' => 'required',
 
+            'name_am' => 'required',
+            'available_am' => 'required',
+            'description_am' => 'required',
+            'total_pax_am' => 'required',
+            'personal_am' => 'required',
+            'Products_am' => 'required',
+            'Extra_am' => 'required',
+            'images_am' => 'required',
+
+            'name_ru' => 'required',
+            'available_ru' => 'required',
+            'description_ru' => 'required',
+            'total_pax_ru' => 'required',
+            'personal_ru' => 'required',
+            'Products_ru' => 'required',
+            'Extra_ru' => 'required',
+            'images_ru' => 'required',
+
         ]);
         $mice = Mice::create([
             'name' => $request->name,
@@ -52,6 +74,48 @@ class MiceController extends Controller
         ]);
       
         foreach ($request->file('images') as  $image) {
+
+            $imageName = $image->getClientOriginalName();
+            $image->move("Mice/" . $mice->id . "/", $imageName);
+            $image = new Image();
+            $image["filename"] = $imageName;
+            $image["path"] = "Mice/" . $mice->id . "/" . $imageName;
+            $image->save();
+            $mice->images()->attach($image->id);
+        }
+
+        $mice = MiceRu::create([
+            'name' => $request->name_ru,
+            'available' => $request->available_ru,
+            'description' => $request->description_ru,
+            'total_pax' => $request->total_pax_ru,
+            'personal' => $request->personal_ru,
+            'Products' => $request->Products_ru,
+            'Extra' => $request->Extra_ru,
+        ]);
+      
+        foreach ($request->file('images_ru') as  $image) {
+
+            $imageName = $image->getClientOriginalName();
+            $image->move("Mice/" . $mice->id . "/", $imageName);
+            $image = new Image();
+            $image["filename"] = $imageName;
+            $image["path"] = "Mice/" . $mice->id . "/" . $imageName;
+            $image->save();
+            $mice->images()->attach($image->id);
+        }
+
+        $mice = MiceAm::create([
+            'name' => $request->name,
+            'available' => $request->available_am,
+            'description' => $request->description_am,
+            'total_pax' => $request->total_pax_am,
+            'personal' => $request->personal_am,
+            'Products' => $request->Products_am,
+            'Extra' => $request->Extra_am,
+        ]);
+      
+        foreach ($request->file('images_am') as  $image) {
 
             $imageName = $image->getClientOriginalName();
             $image->move("Mice/" . $mice->id . "/", $imageName);
@@ -90,6 +154,22 @@ class MiceController extends Controller
             'personal' => 'required',
             'Products' => 'required',
             'Extra' => 'required',
+
+            'name_am' => 'required',
+            'available_am' => 'required',
+            'description_am' => 'required',
+            'total_pax_am' => 'required',
+            'personal_am' => 'required',
+            'Products_am' => 'required',
+            'Extra_am' => 'required',
+
+            'name_ru' => 'required',
+            'available_ru' => 'required',
+            'description_ru' => 'required',
+            'total_pax_ru' => 'required',
+            'personal_ru' => 'required',
+            'Products_ru' => 'required',
+            'Extra_ru' => 'required',
         ]);
         $mice = Mice::find($id);
         $mice->name = $request->name;
