@@ -19,7 +19,11 @@
         </div>
     </div>
 </div>
-
+<div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Armenian</button>
+    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">English</button>
+    <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Russian</button>
+</div>
 <div class="row">
     <div class="col-sm-12">
         <div class="card" style="box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;">
@@ -30,62 +34,182 @@
                 <form id="tourForm" action="{{ url('/admin/accessiories/update/'.$a->id) }}" method="POST" enctype="multipart/form-data">
                     {{csrf_field()}}
                     @method('PUT')
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-2">Name</label>
-                        <div class="col-md-10">
-                            <input value="{{ $a->name }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="name">
+                    <div class="tab-content p-3 border bg-light" id="nav-tabContent">
+                    <div class="tab-pane fade active show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Name</label>
+                            <div class="col-md-10">
+                                <input value="{{ $am->name }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="name_am">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Description</label>
+                            <div class="col-md-10">
+                                <input value="{{ $am->description }}" class="form-control" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px; width:100%;" name="description_am">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Available</label>
+                            <div class="col-md-10">
+                                <input value="{{ $am->availability }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="availability_am">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Type</label>
+                            <div class="col-md-10">
+                                <input value="{{ $am->type }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="type_am">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Total Pax</label>
+                            <div class="col-md-10">
+                                <input value="{{ $am->total_pax }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="total_pax_am">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">One Day price</label>
+                            <div class="col-md-10">
+                                <input value="{{ $am->one_day_price }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="one_day_price_am">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">One Week price</label>
+                            <div class="col-md-10">
+                                <input value="{{ $am->one_week_price }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="one_week_price_am">
+                            </div>
+            
+                        </div>
+            
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">One Month price</label>
+                            <div class="col-md-10">
+                                <input value="{{ $am->one_month_price }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="one_month_price_am">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Free Cancellation</label>
+                            <div class="col-md-10">
+                                <input value="{{ $am->free_cancellation }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="free_cancellation_am">
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-2">Description</label>
-                        <div class="col-md-10">
-                            <input value="{{ $a->description }}" class="form-control" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px; width:100%;" name="description">
+                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Name</label>
+                            <div class="col-md-10">
+                                <input value="{{ $a->name }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="name">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Description</label>
+                            <div class="col-md-10">
+                                <input value="{{ $a->description }}" class="form-control" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px; width:100%;" name="description">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Available</label>
+                            <div class="col-md-10">
+                                <input value="{{ $a->availability }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="availability">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Type</label>
+                            <div class="col-md-10">
+                                <input value="{{ $a->type }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="type">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Total Pax</label>
+                            <div class="col-md-10">
+                                <input value="{{ $a->total_pax }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="total_pax">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">One Day price</label>
+                            <div class="col-md-10">
+                                <input value="{{ $a->one_day_price }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="one_day_price">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">One Week price</label>
+                            <div class="col-md-10">
+                                <input value="{{ $a->one_week_price }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="one_week_price">
+                            </div>
+            
+                        </div>
+            
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">One Month price</label>
+                            <div class="col-md-10">
+                                <input value="{{ $a->one_month_price }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="one_month_price">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Free Cancellation</label>
+                            <div class="col-md-10">
+                                <input value="{{ $a->free_cancellation }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="free_cancellation">
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-2">Available</label>
-                        <div class="col-md-10">
-                            <input value="{{ $a->availability }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="availability">
+                    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Name</label>
+                            <div class="col-md-10">
+                                <input value="{{ $ru->name }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="name_ru">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Description</label>
+                            <div class="col-md-10">
+                                <input value="{{ $ru->description }}" class="form-control" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px; width:100%;" name="description_ru">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Available</label>
+                            <div class="col-md-10">
+                                <input value="{{ $ru->availability }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="availability_ru">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Type</label>
+                            <div class="col-md-10">
+                                <input value="{{ $ru->type }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="type_ru">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Total Pax</label>
+                            <div class="col-md-10">
+                                <input value="{{ $ru->total_pax }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="total_pax_ru">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">One Day price</label>
+                            <div class="col-md-10">
+                                <input value="{{ $ru->one_day_price }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="one_day_price_ru">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">One Week price</label>
+                            <div class="col-md-10">
+                                <input value="{{ $ru->one_week_price }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="one_week_price_ru">
+                            </div>
+            
+                        </div>
+            
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">One Month price</label>
+                            <div class="col-md-10">
+                                <input value="{{ $ru->one_month_price }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="one_month_price_ru">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Free Cancellation</label>
+                            <div class="col-md-10">
+                                <input value="{{ $ru->free_cancellation }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="free_cancellation_ru">
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-2">Type</label>
-                        <div class="col-md-10">
-                            <input value="{{ $a->type }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="type">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-2">Total Pax</label>
-                        <div class="col-md-10">
-                            <input value="{{ $a->total_pax }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="total_pax">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-2">One Day price</label>
-                        <div class="col-md-10">
-                            <input value="{{ $a->one_day_price }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="one_day_price">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-2">One Week price</label>
-                        <div class="col-md-10">
-                            <input value="{{ $a->one_week_price }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="one_week_price">
-                        </div>
-
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-2">One Month price</label>
-                        <div class="col-md-10">
-                            <input value="{{ $a->one_month_price }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="one_month_price">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-2">Free Cancellation</label>
-                        <div class="col-md-10">
-                            <input value="{{ $a->free_cancellation }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="free_cancellation">
-                        </div>
-                    </div>
+                </div>
 
                 <br>
                         {{-- <div class="form-group row">

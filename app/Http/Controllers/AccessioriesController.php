@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Accessiories;
+use App\Models\AccessioriesRu;
+use App\Models\AccessioriesAm;
 use App\Models\Image;
 use App\Models\TourAccessoriesCMS;
 use Illuminate\Http\Request;
@@ -36,6 +38,29 @@ class AccessioriesController extends Controller
             'one_week_price'=>'required',
             'one_month_price'=>'required',
             'images' => 'required',
+
+            'name_am' => 'required',
+            'description_am' => 'required',
+            'availability_am'=>'required',
+            'type_am'=>'required',
+            'total_pax_am'=>'required',
+            'free_cancellation_am'=>'required',
+            'one_day_price_am'=>'required',
+            'one_week_price_am'=>'required',
+            'one_month_price_am'=>'required',
+            'images_am' => 'required',
+
+            'name_ru' => 'required',
+            'description_ru' => 'required',
+            'availability_ru'=>'required',
+            'type_ru'=>'required',
+            'total_pax_ru'=>'required',
+            'free_cancellation_ru'=>'required',
+            'one_day_price_ru'=>'required',
+            'one_week_price_ru'=>'required',
+            'one_month_price_ru'=>'required',
+            'images_ru' => 'required',
+            
         ]);
         $a = Accessiories::create([
             'name' => $request->name,
@@ -49,7 +74,57 @@ class AccessioriesController extends Controller
             'one_month_price' => $request->one_month_price,
         ]);
 
+       
+
         foreach ($request->file('images') as  $image) {
+
+            $imageName = $image->getClientOriginalName();
+            $image->move("Accessiories/" . $a->id . "/", $imageName);
+            $image = new Image();
+            $image["filename"] = $imageName;
+            $image["path"] = "Accessiories/" . $a->id . "/" . $imageName;
+            $image->save();
+            $a->images()->attach($image->id);
+
+        }
+
+        $am = AccessioriesAm::create([
+            'name' => $request->name_am,
+            'description' => $request->description_am,
+            'availability' => $request->availability_am,
+            'type' => $request->type_am,
+            'total_pax' => $request->total_pax_am,
+            'free_cancellation' => $request->free_cancellation_am,
+            'one_day_price' => $request->one_day_price_am,
+            'one_week_price' => $request->one_week_price_am,
+            'one_month_price' => $request->one_month_price_am,
+        ]);
+
+        foreach ($request->file('images_am') as  $image) {
+
+            $imageName = $image->getClientOriginalName();
+            $image->move("Accessiories/" . $a->id . "/", $imageName);
+            $image = new Image();
+            $image["filename"] = $imageName;
+            $image["path"] = "Accessiories/" . $a->id . "/" . $imageName;
+            $image->save();
+            $a->images()->attach($image->id);
+
+        }
+
+        $ru = AccessioriesRu::create([
+            'name' => $request->name_ru,
+            'description' => $request->description_ru,
+            'availability' => $request->availability_ru,
+            'type' => $request->type_ru,
+            'total_pax' => $request->total_pax_ru,
+            'free_cancellation' => $request->free_cancellation_ru,
+            'one_day_price' => $request->one_day_price_ru,
+            'one_week_price' => $request->one_week_price_ru,
+            'one_month_price' => $request->one_month_price_ru,
+        ]);
+
+        foreach ($request->file('images_ru') as  $image) {
 
             $imageName = $image->getClientOriginalName();
             $image->move("Accessiories/" . $a->id . "/", $imageName);
@@ -83,7 +158,15 @@ class AccessioriesController extends Controller
             ->with('images')
             ->where('id', $id)
             ->first();
-        return view('Backend.Admin.Services.Accessiories.update', compact('a'));
+        $am = AccessioriesAm::find($id)
+        ->with('images')
+        ->where('id', $id)
+        ->first();
+        $ru = AccessioriesRu::find($id)
+        ->with('images')
+        ->where('id', $id)
+        ->first();
+        return view('Backend.Admin.Services.Accessiories.update', compact('a','am','ru'));
         
     }
 
@@ -102,7 +185,31 @@ class AccessioriesController extends Controller
         $a->one_week_price = $request->one_week_price;
         $a->one_month_price = $request->one_month_price;
         $a->save();
-        return redirect()->back()->with("msg", "Upadated successfully!")
+
+        $a = AccessioriesAm::find($id);
+        $a->name = $request->name_am;
+        $a->description = $request->description_am;
+        $a->availability = $request->availability_am;
+        $a->type = $request->type_am;
+        $a->total_pax = $request->total_pax_am;
+        $a->free_cancellation = $request->free_cancellation_am;
+        $a->one_day_price = $request->one_day_price_am;
+        $a->one_week_price = $request->one_week_price_am;
+        $a->one_month_price = $request->one_month_price_am;
+        $a->save();
+
+        $a = AccessioriesRu::find($id);
+        $a->name = $request->name_ru;
+        $a->description = $request->description_ru;
+        $a->availability = $request->availability_ru;
+        $a->type = $request->type_ru;
+        $a->total_pax = $request->total_pax_ru;
+        $a->free_cancellation = $request->free_cancellation_ru;
+        $a->one_day_price = $request->one_day_price_ru;
+        $a->one_week_price = $request->one_week_price_ru;
+        $a->one_month_price = $request->one_month_price_ru;
+        $a->save();
+        return redirect()->back()->with("msg", "Updated successfully!")
         ->with("success", true);
     }
 
@@ -111,6 +218,12 @@ class AccessioriesController extends Controller
     {
           //delete the record
         $a = Accessiories::find($id);
+        $a->delete();
+
+        $a = AccessioriesRu::find($id);
+        $a->delete();
+
+        $a = AccessioriesAm::find($id);
         $a->delete();
         return redirect()->back()->with("msg", "Deleted successfully!")
         ->with("success", true);
