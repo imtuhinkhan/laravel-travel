@@ -188,6 +188,12 @@ class MiceController extends Controller
     {
         $mice = Mice::find($id);
         $mice->delete();
+
+        $mice = MiceAm::find($id);
+        $mice->delete();
+
+        $mice = MiceRu::find($id);
+        $mice->delete();
         return redirect()->back()->with("msg", "Deleted successfully!")
         ->with("success", true);
     }
