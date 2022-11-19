@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\CarWithDriver;
 use App\Models\CarWithDriverInfo;
+use App\Models\CarWithDriverAmInfo;
+use App\Models\CarWithDriverRuInfo;
 use Illuminate\Http\Request;
 
 class CarWithDriverController extends Controller
@@ -29,7 +31,7 @@ class CarWithDriverController extends Controller
     }
 
 
-    public function storeInfo()
+    public function storeInfo(Request $request)
     {
         // $table->string('name');
         //     $table->string('model');
@@ -58,6 +60,24 @@ class CarWithDriverController extends Controller
             'cancelation_fee',
         ]));
 
+        $carRu = CarWithDriverRuInfo::create([
+            'name'=>$request->name_ru,
+            'overview'=>$request->overview_ru,
+            'model'=>$request->model_ru,
+            'type'=>$request->type_ru,
+            'seats'=>$request->seats_ru,
+            'cancelation_fee'=>$request->cancelation_fee_ru,
+        ]);
+
+        $carRu = CarWithDriverAmInfo::create([
+            'name'=>$request->name_am,
+            'overview'=>$request->overview_am,
+            'model'=>$request->model_am,
+            'type'=>$request->type_am,
+            'seats'=>$request->seats_am,
+            'cancelation_fee'=>$request->cancelation_fee_am,
+        ]);
+
         return redirect()->back()->with("msg", "Created successfully!")
         ->with("success", true);
 
@@ -78,6 +98,8 @@ class CarWithDriverController extends Controller
       try {
         $request->validate([
             'car_name' => 'required',
+            'car_name_am' => 'required',
+            'car_name_ru' => 'required',
             'three_seats' => 'required|numeric',
             'seven_seats' => 'required|numeric',
             'sixteen_seats' => 'required|numeric',
@@ -88,6 +110,8 @@ class CarWithDriverController extends Controller
         //create a new car with driver
         $car = CarWithDriver::create(request([
             'car_name',
+            'car_name_am',
+            'car_name_ru',
             'three_seats',
             'seven_seats',
             'sixteen_seats',

@@ -18,6 +18,14 @@ class Image extends Model
         return $this->hasMany(TourImage::class);
     }
 
+    public function tourRuImages(){
+        return $this->hasMany(TourImageRu::class);
+    }
+
+    public function tourAmImages(){
+        return $this->hasMany(TourImageAm::class);
+    }
+
     public function vehicleImages(){
         return $this->hasMany(VehicleImage::class);
     }

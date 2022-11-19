@@ -11,6 +11,12 @@
             {{ session('msg') }}
         </div>
     @endif
+    <style>
+        .nav-link {
+            display: block;
+            padding:0px 8px;
+        }
+    </style>
 
 
     <div class="container-fluid">
@@ -159,17 +165,47 @@
                     Tour Program
                 </h3>
                 <hr>
+                <nav>
+                    <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+                        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Armenian</button>
+                        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">English</button>
+                        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Russian</button>
+                    </div>
+                </nav>
 
                 <form action="{{ url('/admin/tourprogram/' . $tour->id) }}" method="POST" enctype="multipart/form-data">
                     {{ csrf_field() }}
+                    <div class="tab-content p-3 border bg-light" id="nav-tabContent">
+                        <div class="tab-pane fade active show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <input type="text" class="form-control mt-2" placeholder="Day 1" name="day_am">
+                            <input type="text" class="form-control mt-2" placeholder="USA - CHINA- CANADA" name="fromTo_am">
+                            <input type="text" class="form-control mt-2" placeholder="Description" name="description_am">
+                            <input type="text" class="form-control mt-2" placeholder="500KM" name="distance_am">
+                            <input type="text" class="form-control mt-2" placeholder="Duration" name="duration_am">
+                            <input type="text" class="form-control mt-2" placeholder="Lunch/Dinner etc" name="food_am">
+                            <input type="text" class="form-control mt-2" placeholder="Location" name="location_am">
+                        </div>
+                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <input type="text" class="form-control mt-2" placeholder="Day 1" name="day">
+                            <input type="text" class="form-control mt-2" placeholder="USA - CHINA- CANADA" name="fromTo">
+                            <input type="text" class="form-control mt-2" placeholder="Description" name="description">
+                            <input type="text" class="form-control mt-2" placeholder="500KM" name="distance">
+                            <input type="text" class="form-control mt-2" placeholder="Duration" name="duration">
+                            <input type="text" class="form-control mt-2" placeholder="Lunch/Dinner etc" name="food">
+                            <input type="text" class="form-control mt-2" placeholder="Location" name="location">
+                        </div>
+                        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+
+                            <input type="text" class="form-control mt-2" placeholder="Day 1" name="day_ru">
+                            <input type="text" class="form-control mt-2" placeholder="USA - CHINA- CANADA" name="fromTo_ru">
+                            <input type="text" class="form-control mt-2" placeholder="Description" name="description_ru">
+                            <input type="text" class="form-control mt-2" placeholder="500KM" name="distance_ru">
+                            <input type="text" class="form-control mt-2" placeholder="Duration" name="duration_ru">
+                            <input type="text" class="form-control mt-2" placeholder="Lunch/Dinner etc" name="food_ru">
+                            <input type="text" class="form-control mt-2" placeholder="Location" name="location_ru">
+                        </div>
+                    </div>
                     <div class="">
-                        <input type="text" class="form-control mt-2" placeholder="Day 1" name="day">
-                        <input type="text" class="form-control mt-2" placeholder="USA - CHINA- CANADA" name="fromTo">
-                        <input type="text" class="form-control mt-2" placeholder="Description" name="description">
-                        <input type="text" class="form-control mt-2" placeholder="500KM" name="distance">
-                        <input type="text" class="form-control mt-2" placeholder="Duration" name="duration">
-                        <input type="text" class="form-control mt-2" placeholder="Lunch/Dinner etc" name="food">
-                        <input type="text" class="form-control mt-2" placeholder="Location" name="location">
                         <hr>
                         <button class="btn btn-info text-white">
                             Submit
@@ -246,16 +282,31 @@
                 </h3>
                 <hr>
 
+                <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+                    <button class="nav-link active" id="nav-facilities-am-tab" data-bs-toggle="tab" data-bs-target="#nav-armenia-fac" type="button" role="tab" aria-controls="nav-armenia-fac" aria-selected="true">Armenian</button>
+                    <button class="nav-link" id="nav-facilities-en-tab" data-bs-toggle="tab" data-bs-target="#nav-english-fac" type="button" role="tab" aria-controls="nav-english-fac" aria-selected="false">English</button>
+                    <button class="nav-link" id="nav-facilities-ru-tab" data-bs-toggle="tab" data-bs-target="#nav-rus-fac" type="button" role="tab" aria-controls="nav-rus-fac" aria-selected="false">Russian</button>
+                </div>
+
                 <form action="{{ url('admin/facility/' . $tour->id) }}" method="POST" enctype="multipart/form-data">
                     {{ csrf_field() }}
+                    <div class="tab-content p-3 border bg-light" id="nav-tabContent">
+                        <div class="tab-pane fade active show" id="nav-armenia-fac" role="tabpanel" aria-labelledby="nav-facilities-am-tab">
+                            <input type="text" class="form-control" placeholder="What is included" name="name_am">
+                            <input type="text" class="form-control mt-2" placeholder="What is not included" name="unname_am">
+                        </div>
+
+                        <div class="tab-pane fade" id="nav-english-fac" role="tabpanel" aria-labelledby="nav-facilities-en-tab">
+                            <input type="text" class="form-control" placeholder="What is included" name="name">
+                            <input type="text" class="form-control mt-2" placeholder="What is not included" name="unname">
+                        </div>
+
+                        <div class="tab-pane fade" id="nav-rus-fac" role="tabpanel" aria-labelledby="nav-facilities-ru-tab">
+                            <input type="text" class="form-control" placeholder="What is included" name="name_ru">
+                            <input type="text" class="form-control mt-2" placeholder="What is not included" name="unname_ru">
+                        </div>
+                    </div>
                     <div class="">
-                        <input type="text" class="form-control" placeholder="What is included" name="name">
-
-                        <input type="text" class="form-control mt-2" placeholder="What is not included"
-                            name="unname">
-
-
-                        <hr>
                         <button class="btn btn-info text-white">
                             Submit
                         </button>
@@ -365,12 +416,32 @@
                 </h3>
                 <hr>
 
+                <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+                    <button class="nav-link active" id="nav-useful-am-tab" data-bs-toggle="tab" data-bs-target="#nav-armenia-use" type="button" role="tab" aria-controls="nav-armenia-use" aria-selected="true">Armenian</button>
+                    <button class="nav-link" id="nav-useful-en-tab" data-bs-toggle="tab" data-bs-target="#nav-english-use" type="button" role="tab" aria-controls="nav-english-use" aria-selected="false">English</button>
+                    <button class="nav-link" id="nav-useful-ru-tab" data-bs-toggle="tab" data-bs-target="#nav-rus-use" type="button" role="tab" aria-controls="nav-rus-use" aria-selected="false">Russian</button>
+                </div>
+
                 <form action="{{ url('/admin/adduseful/' . $tour->id) }}" method="POST" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="">
                         <div class="form-group row">
+                            <div class="tab-content p-3 border bg-light" id="nav-tabContent">
+                                <div class="tab-pane fade active show" id="nav-armenia-high" role="tabpanel" aria-labelledby="nav-useful-am-tab">
+                                     <input type="text" class="form-control" placeholder="Add Info" name="name_am">
+                                
+                                </div>
+
+                                <div class="tab-pane fade" id="nav-english-use" role="tabpanel" aria-labelledby="nav-useful-am-tab">
+                                    <input type="text" class="form-control" placeholder="Add Info" name="name">
+                               
+                               </div>
+                               <div class="tab-pane fade" id="nav-rus-use" role="tabpanel" aria-labelledby="nav-useful-am-tab">
+                                <input type="text" class="form-control" placeholder="Add Info" name="name_ru">
+                           
+                           </div>
+                            </div>        
                             {{-- <label class="col-form-label col-md-2">Tour Type</label> --}}
-                            <input type="text" class="form-control" placeholder="Add Info" name="name">
                         </div>
                         <hr>
                         <button class="btn btn-info text-white">
@@ -406,12 +477,27 @@
                     Highlights
                 </h3>
                 <hr>
-
+                <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+                    <button class="nav-link active" id="nav-highlights-am-tab" data-bs-toggle="tab" data-bs-target="#nav-armenia-high" type="button" role="tab" aria-controls="nav-armenia-high" aria-selected="true">Armenian</button>
+                    <button class="nav-link" id="nav-highlights-en-tab" data-bs-toggle="tab" data-bs-target="#nav-english-high" type="button" role="tab" aria-controls="nav-english-high" aria-selected="false">English</button>
+                    <button class="nav-link" id="nav-highlights-ru-tab" data-bs-toggle="tab" data-bs-target="#nav-rus-high" type="button" role="tab" aria-controls="nav-rus-high" aria-selected="false">Russian</button>
+                </div>
                 <form action="{{ url('admin/highlight/' . $tour->id) }}" method="POST" enctype="multipart/form-data">
                     {{ csrf_field() }}
-                    <div class="">
-                        <input type="text" class="form-control" placeholder="Add Highlights" name="name">
+                    <div class="tab-content p-3 border bg-light" id="nav-tabContent">
+                        <div class="tab-pane fade active show" id="nav-armenia-high" role="tabpanel" aria-labelledby="nav-highlights-am-tab">
+                            <input type="text" class="form-control" placeholder="Add Highlights" name="name_am">
+                        </div>
 
+                        <div class="tab-pane fade" id="nav-english-high" role="tabpanel" aria-labelledby="nav-highlights-am-tab">
+                            <input type="text" class="form-control" placeholder="Add Highlights" name="name">
+                        </div>
+
+                        <div class="tab-pane fade" id="nav-rus-high" role="tabpanel" aria-labelledby="nav-highlights-am-tab">
+                            <input type="text" class="form-control" placeholder="Add Highlights" name="name_ru">
+                        </div>
+                    </div>
+                    <div class="">
                         <hr>
                         <button class="btn btn-info text-white">
                             Submit
@@ -452,14 +538,41 @@
                     Guarantee Departure
                 </h3>
                 <hr>
+                <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+                    <button class="nav-link active" id="nav-departure-am-tab" data-bs-toggle="tab" data-bs-target="#nav-armenia-dep" type="button" role="tab" aria-controls="nav-armenia-dep" aria-selected="true">Armenian</button>
+                    <button class="nav-link" id="nav-departure-en-tab" data-bs-toggle="tab" data-bs-target="#nav-english-dep" type="button" role="tab" aria-controls="nav-english-dep" aria-selected="false">English</button>
+                    <button class="nav-link" id="nav-departure-ru-tab" data-bs-toggle="tab" data-bs-target="#nav-rus-dep" type="button" role="tab" aria-controls="nav-rus-dep" aria-selected="false">Russian</button>
+                </div>
 
                 <form action="{{ url('/admin/departure/' . $tour->id) }}" method="POST" enctype="multipart/form-data">
                     {{ csrf_field() }}
+                    
                     <div class="">
-                        <input type="text" class="form-control" placeholder="Start Date" name="start_date">
-                        <input type="text" class="form-control mt-1" placeholder="End Date" name="end_date">
-                        <input type="text" class="form-control mt-1" placeholder="Max Pax" name="price">
-                        <input type="text" class="form-control mt-1" placeholder="Price" name="pax">
+                        <div class="tab-content p-3 border bg-light" id="nav-tabContent">
+                            <div class="tab-pane fade active show" id="nav-armenia-dep" role="tabpanel" aria-labelledby="nav-departure-am-tab">
+
+                                <input type="text" class="form-control" placeholder="Start Date" name="start_date_am">
+                                <input type="text" class="form-control mt-1" placeholder="End Date" name="end_date_am">
+                                <input type="text" class="form-control mt-1" placeholder="Max Pax" name="price_am">
+                                <input type="text" class="form-control mt-1" placeholder="Price" name="pax_am">
+                            </div>
+                            
+                            <div class="tab-pane fade" id="nav-english-dep" role="tabpanel" aria-labelledby="nav-departure-en-tab">
+                            
+                                <input type="text" class="form-control" placeholder="Start Date" name="start_date">
+                                <input type="text" class="form-control mt-1" placeholder="End Date" name="end_date">
+                                <input type="text" class="form-control mt-1" placeholder="Max Pax" name="price">
+                                <input type="text" class="form-control mt-1" placeholder="Price" name="pax">
+                            </div>
+                            
+                            <div class="tab-pane fade" id="nav-rus-dep" role="tabpanel" aria-labelledby="nav-departure-ru-tab">
+                            
+                                <input type="text" class="form-control" placeholder="Start Date" name="start_date_ru">
+                                <input type="text" class="form-control mt-1" placeholder="End Date" name="end_date_ru">
+                                <input type="text" class="form-control mt-1" placeholder="Max Pax" name="price_ru">
+                                <input type="text" class="form-control mt-1" placeholder="Price" name="pax_ru">
+                            </div>
+                        </div>
 
                         <hr>
                         <button class="btn btn-info text-white">

@@ -24,6 +24,8 @@ class CreateNearbyArmeniasTable extends Migration
             $table->string('period');
             $table->string('distance');
             $table->string('price');
+            $table->longText('map')->nullable();
+
             $table->softDeletes();
             $table->timestamps();
         });

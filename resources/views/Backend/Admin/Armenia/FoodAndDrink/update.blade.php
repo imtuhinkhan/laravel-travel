@@ -19,7 +19,11 @@
         </div>
     </div>
 </div>
-
+<div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Armenian</button>
+    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">English</button>
+    <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Russian</button>
+</div>
 <div class="row">
     <div class="col-sm-12">
         <div class="card" style="box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;">
@@ -30,68 +34,215 @@
                 <form id="tourForm" action="/admin/foods/update/{{ $food->id }}" method="POST" enctype="multipart/form-data">
                     {{csrf_field()}}
                     @method('PUT')
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-2">Name</label>
-                        <div class="col-md-10">
-                            <input value="{{ $food->name }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="name">
+                    <div class="tab-content p-3 border bg-light" id="nav-tabContent">
+                        <div class="tab-pane fade active show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-2">Name</label>
+                                <div class="col-md-10">
+                                    <input value="{{ $foodAm->name }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="name_am">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-2">Description</label>
+                                <div class="col-md-10">
+                                    <input  value="{{ $foodAm->description }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px; width:100%;" class="form-control" name="description_am">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-2">Time</label>
+                                <div class="col-md-10">
+                                    <input value="{{ $foodAm->time }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="time_am">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-2">Address</label>
+                                <div class="col-md-10">
+                                    <input value="{{ $foodAm->address }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="address_am">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-2">Duration</label>
+                                <div class="col-md-10">
+                                    <input value="{{ $foodAm->duration }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="duration_am">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-2">Period</label>
+                                <div class="col-md-10">
+                                    <input value="{{ $foodAm->period }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="period_am">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-2">Distance</label>
+                                <div class="col-md-10">
+                                    <input value="{{ $foodAm->distance }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="distance_am">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-2">MAP</label>
+                                <div class="col-md-10">
+                                    <input value="{{ $foodAm->map }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="map_am">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-2">Price</label>
+                                <div class="col-md-10">
+                                    <input value="{{ $foodAm->price }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="price_am">
+                                </div>
+                            </div>
+        
+                            <!-- category dropdown -->
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-2">Default Select</label>
+                                <div class="col-md-10">
+                                    <select class="form-control form-select" name="category_id_am">
+                                       
+                                        @foreach($categories as $category)
+                                        <option  value="{{$category->id}}">{{$category->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-2">Name</label>
+                                <div class="col-md-10">
+                                    <input value="{{ $food->name }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="name">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-2">Description</label>
+                                <div class="col-md-10">
+                                    <input  value="{{ $food->description }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px; width:100%;" class="form-control" name="description">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-2">Time</label>
+                                <div class="col-md-10">
+                                    <input value="{{ $food->time }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="time">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-2">Address</label>
+                                <div class="col-md-10">
+                                    <input value="{{ $food->address }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="address">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-2">Duration</label>
+                                <div class="col-md-10">
+                                    <input value="{{ $food->duration }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="duration">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-2">Period</label>
+                                <div class="col-md-10">
+                                    <input value="{{ $food->period }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="period">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-2">Distance</label>
+                                <div class="col-md-10">
+                                    <input value="{{ $food->distance }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="distance">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-2">MAP</label>
+                                <div class="col-md-10">
+                                    <input value="{{ $food->map }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="map">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-2">Price</label>
+                                <div class="col-md-10">
+                                    <input value="{{ $food->price }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="price">
+                                </div>
+                            </div>
+        
+                            <!-- category dropdown -->
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-2">Default Select</label>
+                                <div class="col-md-10">
+                                    <select class="form-control form-select" name="category_id">
+                                       
+                                        @foreach($categories as $category)
+                                        <option  value="{{$category->id}}">{{$category->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-2">Name</label>
+                                <div class="col-md-10">
+                                    <input value="{{ $foodRu->name }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="name_ru">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-2">Description</label>
+                                <div class="col-md-10">
+                                    <input  value="{{ $foodRu->description }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px; width:100%;" class="form-control" name="description_ru">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-2">Time</label>
+                                <div class="col-md-10">
+                                    <input value="{{ $foodRu->time }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="time_ru">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-2">Address</label>
+                                <div class="col-md-10">
+                                    <input value="{{ $foodRu->address }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="address_ru">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-2">Duration</label>
+                                <div class="col-md-10">
+                                    <input value="{{ $foodRu->duration }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="duration_ru">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-2">Period</label>
+                                <div class="col-md-10">
+                                    <input value="{{ $foodRu->period }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="period_ru">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-2">Distance</label>
+                                <div class="col-md-10">
+                                    <input value="{{ $foodRu->distance }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="distance_ru">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-2">MAP</label>
+                                <div class="col-md-10">
+                                    <input value="{{ $foodRu->map }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="map_ru">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-2">Price</label>
+                                <div class="col-md-10">
+                                    <input value="{{ $foodRu->price }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="price_ru">
+                                </div>
+                            </div>
+        
+                            <!-- category dropdown -->
+                            <div class="form-group row">
+                                <label class="col-form-label col-md-2">Default Select</label>
+                                <div class="col-md-10">
+                                    <select class="form-control form-select" name="category_id_ru">
+                                       
+                                        @foreach($categories as $category)
+                                        <option  value="{{$category->id}}">{{$category->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-2">Description</label>
-                        <div class="col-md-10">
-                            <input  value="{{ $food->description }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px; width:100%;" class="form-control" name="description">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-2">Time</label>
-                        <div class="col-md-10">
-                            <input value="{{ $food->time }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="time">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-2">Address</label>
-                        <div class="col-md-10">
-                            <input value="{{ $food->address }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="address">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-2">Duration</label>
-                        <div class="col-md-10">
-                            <input value="{{ $food->duration }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="duration">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-2">Period</label>
-                        <div class="col-md-10">
-                            <input value="{{ $food->period }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="period">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-2">Distance</label>
-                        <div class="col-md-10">
-                            <input value="{{ $food->distance }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="distance">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-2">Price</label>
-                        <div class="col-md-10">
-                            <input value="{{ $food->price }}" style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="price">
-                        </div>
-                    </div>
-
-                    <!-- category dropdown -->
-                    <div class="form-group row">
-                        <label class="col-form-label col-md-2">Category</label>
-                        <div class="col-md-10">
-                            <select class="form-control form-select" name="category_id">
-                               
-                                @foreach($categories as $category)
-                                <option  value="{{$category->id}}">{{$category->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
                     {{-- <div class="form-group row">
                         <label class="col-form-label col-md-2">File Input </label>
                         <div class="col-md-10">

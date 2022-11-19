@@ -16,6 +16,8 @@ class CreateCarWithDriversTable extends Migration
         Schema::create('car_with_drivers', function (Blueprint $table) {
             $table->id();
             $table->string('car_name');
+            $table->string('car_name_am');
+            $table->string('car_name_ru');
             $table->decimal('three_seats');
             $table->decimal('seven_seats');
             $table->decimal('sixteen_seats');

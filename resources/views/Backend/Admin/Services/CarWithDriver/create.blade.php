@@ -30,9 +30,21 @@
                 <form id="tourForm" action="{{ url('/admin/CarWithDriver/store') }}" method="POST" enctype="multipart/form-data">
                     {{csrf_field()}}
                     <div class="form-group row">
-                        <label class="col-form-label col-md-2">Car name</label>
+                        <label class="col-form-label col-md-2">Car name(English)</label>
                         <div class="col-md-10">
                             <input style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="car_name">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-2">Car name(Armenian)</label>
+                        <div class="col-md-10">
+                            <input style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="car_name_am">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-2">Car name(Russian)</label>
+                        <div class="col-md-10">
+                            <input style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="car_name_ru">
                         </div>
                     </div>
                     <div class="form-group row">

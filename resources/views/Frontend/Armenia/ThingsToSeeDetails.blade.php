@@ -68,10 +68,9 @@
                 
 
                 <div class="row" style="">
-                    <div class="col-md-12">
-                        {{-- <iframe src="https://maps.google.com/maps?q=manhatan&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height ="100%"
-                    frameborder="0" allowfullscreen></iframe> --}}
-                        <img src="{{ asset('images/map.png') }}" alt="" style="height:310px; width: 530px; margin-top: 52px;">
+                    <div class="col-md-12" style="margin-top:90px;">
+                        <span >{!! $things->map !!} </span>                   
+                        {{-- <img src="{{ asset('images/map.png') }}" alt="" style="height:310px; width: 530px; margin-top: 52px;"> --}}
                     </div>
                 </div>
                 <br>
@@ -119,11 +118,12 @@
                                 </div>
                             </div>
                             <div class="detailespackage" style="justify-content:space-between">
-                                <div><i class="fa-solid fa-dollar-sign"></i>
+                                <div><i class="fa-solid {{currency_icon()}}"></i>
                                     Enterence
                                 </div>
                                 <div>
-                                    {{ $things->price }}
+                                    {{convert_currency($things->price)}} {{ __(currency_word()) }}
+
                                 </div>
                             </div>
                         </div>

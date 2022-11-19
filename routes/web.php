@@ -117,20 +117,11 @@ Route::get('/clear-compiled', function () {
 
 // php artisan clear-compiled
 
-// Route::get('/currency/{val}', function ($val) {
-//     if($val=='USD'){
-//         Session::put('currency_word',$val);
-//         $val = 'price';
-//     }elseif($val=='RUR'){
-//         Session::put('currency_word','RUB');
-//     }
-//     else{
-//         Session::put('currency_word',$val);
-//     }
-//     Session::put('currency',$val);
-//     return redirect()->back();
-//     //Return anything
-// });
+Route::get('/currency/{val}', function ($val) {
+    Session::put('currency',$val);
+    return redirect()->back();
+    //Return anything
+});
 
 
 
@@ -639,7 +630,7 @@ Route::get('/driver/{locale?}', [CarWithDriverController::class, 'getAll']);
 
 
 //==========Book Tour=========
-Route::get('/BookATour/{id}', [BookATourController::class, 'BookATour']);
+Route::get('/BookATour/{id}/{locale?}', [BookATourController::class, 'BookATour']);
 Route::post('/BookATour/store/{id}', [BookATourController::class, 'store']);
 
 
@@ -655,26 +646,26 @@ Route::post('/BookACar/store/{id}', [BookingACarController::class, 'store']);
 
 
 // =========Book Car With Driver=========
-Route::get('/BookACar/', [BookingACarWithDriverController::class, 'BookACar']);
+Route::get('/BookACar{locale?}/', [BookingACarWithDriverController::class, 'BookACar']);
 Route::post('/BookACar/store', [BookingACarWithDriverController::class, 'store']);
 
 //==========Book a car at airport=========
-Route::get('/BookACar/airport/at', [BookingACarAtAirportController::class, 'BookACar']);
+Route::get('/BookACar/airport/at/{locale?}', [BookingACarAtAirportController::class, 'BookACar']);
 Route::post('/BookACar/airport/store', [BookingACarAtAirportController::class, 'store']);
 
 
 //==========Book Room=========
-Route::get('/BookARoom/{id}', [BookingARoomController::class, 'BookARoom']);
+Route::get('/BookARoom/{id}/{locale?}', [BookingARoomController::class, 'BookARoom']);
 Route::post('/BookARoom/store/{id}', [BookingARoomController::class, 'store']);
 
 
 //==========Book Acc=========
-Route::get('/BookATent/{id}', [BookingAccessioriesController::class, 'BookAcc']);
+Route::get('/BookATent/{id}/{locale?}', [BookingAccessioriesController::class, 'BookAcc']);
 Route::post('/BookATent/store/{id}', [BookingAccessioriesController::class, 'store']);
 
 
 //==========Book Mice=========
-Route::get('/BookMice/{id}', [BookingMiceController::class, 'BookMice']);
+Route::get('/BookMice/{id}/{locale?}', [BookingMiceController::class, 'BookMice']);
 Route::post('/BookMice/store/{id}', [BookingMiceController::class, 'store']);
 
 

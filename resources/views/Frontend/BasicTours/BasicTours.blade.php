@@ -71,12 +71,8 @@
                                     </div>
 
                                     <div class="packageOffer">
-                                        <span><i class="fa-solid fa-dollar-sign"></i></span>
-                                        @if(Session::has('currency'))
-                                            {{ $item[Session::get('currency')] }} {{ __(Session::get('currency_word')) }}
-                                        @else
-                                        {{ $item->price }} {{ __('USD') }}
-                                        @endif 
+                                        <span><i class="fa-solid {{currency_icon()}}"></i></span>
+                                              {{convert_currency($item->price)}} {{ __(currency_word()) }}
                                     </div>
                                 </div>
                                 <div class="rating">

@@ -58,10 +58,12 @@
             </div>
             <div class="col-md-5 tour-descriptions-content-inner-left-content-title">
                 <div class="row" style="">
-                    <div class="col-md-12">
+                    <div class="col-md-12" style="margin-top:90px;" >
+                        <span >{!! $foods->map !!} </span>  
+
                         {{-- <iframe src="https://maps.google.com/maps?q=manhatan&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height ="100%"
                     frameborder="0" allowfullscreen></iframe> --}}
-                        <img src="{{ asset('images/map.png') }}" alt="{{ __($foods->name) }}" style="height:310px; width: 530px; margin-top: 52px;">
+                        {{-- <img src="{{ asset('images/map.png') }}" alt="{{ __($foods->name) }}" style="height:310px; width: 530px; margin-top: 52px;"> --}}
                     </div>
                 </div>
                 <br>
@@ -103,15 +105,16 @@
                                     {{ __('Working Hours') }}
                                 </div>
                                 <div>
-                                    {{ __('$foods->duration') }}
+                                    {{ __($foods->duration) }}
                                 </div>
                             </div>
                             <div class="detailespackage" style="justify-content:space-between">
-                                <div><i class="fa-solid fa-dollar-sign"></i>
+                                <div><i class="fa-solid {{currency_icon()}}"></i>
                                     {{ __('Enterence') }}
                                 </div>
                                 <div>
-                                    {{ __($foods->price) }}
+                                    {{convert_currency($foods->price)}} {{ __(currency_word()) }}
+
                                 </div>
                             </div>
                         </div>

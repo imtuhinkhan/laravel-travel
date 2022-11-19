@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\CarAirport;
+use App\Models\CarAirportRu;
+use App\Models\CarAirportAm;
 use Illuminate\Http\Request;
 
 class CarAirportController extends Controller
@@ -31,6 +33,17 @@ class CarAirportController extends Controller
         $carAirport->details = $request->details;
         $carAirport->more_details = $request->more_details;
         $carAirport->save();
+
+        $carAirportAm = new CarAirportAm();
+        $carAirportAm->details = $request->details_am;
+        $carAirportAm->more_details = $request->more_details_am;
+        $carAirportAm->save();
+
+        $carAirportRu = new CarAirportRu();
+        $carAirportRu->details = $request->details_ru;
+        $carAirportRu->more_details = $request->more_details_ru;
+        $carAirportRu->save();
+        
         return redirect()->back()->with("msg", "Added successfully!")
         ->with("success", true);
     }

@@ -182,7 +182,7 @@
                                 <a href="#" class="count-title">MICE</a>
                                 <a href="#" class="count">
                                     <?php
-                                        $tour = DB::table('miceS')->get();
+                                        $tour = DB::table('mices')->get();
                                         $count = count($tour);
                                         echo $count." MICE";
                                     ?>

@@ -137,12 +137,25 @@
                     Highlights
                 </h3>
                 <hr>
-
+                <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+                    <button class="nav-link active" id="nav-home-tab-1" data-bs-toggle="tab" data-bs-target="#nav-home-1" type="button" role="tab" aria-controls="nav-home-1" aria-selected="true">Armenian</button>
+                    <button class="nav-link" id="nav-profile-tab-1" data-bs-toggle="tab" data-bs-target="#nav-profile-1" type="button" role="tab" aria-controls="nav-profile-1" aria-selected="false">English</button>
+                    <button class="nav-link" id="nav-contact-tab-1" data-bs-toggle="tab" data-bs-target="#nav-contact-1" type="button" role="tab" aria-controls="nav-contact-1" aria-selected="false">Russian</button>
+                </div>
                 <form action="{{ url('/admin/hotel/highlight/' . $hotel->id) }}" method="POST" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="">
-                        <input type="text" class="form-control" placeholder="Add Highlights" name="name">
-
+                        <div class="tab-content p-3 border bg-light" id="nav-tabContent">
+                            <div class="tab-pane fade active show" id="nav-home-1" role="tabpanel" aria-labelledby="nav-home-tab-1">
+                                <input type="text" class="form-control" placeholder="Add Highlights" name="name_am">
+                            </div>
+                            <div class="tab-pane fade" id="nav-profile-1" role="tabpanel" aria-labelledby="nav-profile-tab-1">
+                                <input type="text" class="form-control" placeholder="Add Highlights" name="name">
+                            </div>
+                            <div class="tab-pane fade" id="nav-contact-1" role="tabpanel" aria-labelledby="nav-contact-tab-1">
+                                <input type="text" class="form-control" placeholder="Add Highlights" name="name_ru">
+                            </div>
+                        </div>
                         <hr>
                         <button class="btn btn-info text-white">
                             Submit
@@ -179,12 +192,25 @@
                     Add key points
                 </h3>
                 <hr>
-
+                <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+                    <button class="nav-link active" id="nav-home-tab-2" data-bs-toggle="tab" data-bs-target="#nav-home-2" type="button" role="tab" aria-controls="nav-home-2" aria-selected="true">Armenian</button>
+                    <button class="nav-link" id="nav-profile-tab-2" data-bs-toggle="tab" data-bs-target="#nav-profile-2" type="button" role="tab" aria-controls="nav-profile-2" aria-selected="false">English</button>
+                    <button class="nav-link" id="nav-contact-tab-2" data-bs-toggle="tab" data-bs-target="#nav-contact-2" type="button" role="tab" aria-controls="nav-contact-2" aria-selected="false">Russian</button>
+                </div>
                 <form action="{{ url('/admin/addHotelKey/' . $hotel->id) }}" method="POST" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="">
-                        <input type="text" class="form-control" placeholder="Add Key Points" name="key">
-
+                        <div class="tab-content p-3 border bg-light" id="nav-tabContent">
+                            <div class="tab-pane fade active show" id="nav-home-2" role="tabpanel" aria-labelledby="nav-home-tab-2">
+                                <input type="text" class="form-control" placeholder="Add Key Points" name="key_am">
+                            </div>
+                            <div class="tab-pane fade" id="nav-profile-2" role="tabpanel" aria-labelledby="nav-profile-tab-2">
+                                <input type="text" class="form-control" placeholder="Add Key Points" name="key">
+                            </div>
+                            <div class="tab-pane fade" id="nav-contact-2" role="tabpanel" aria-labelledby="nav-contact-tab-2">
+                                <input type="text" class="form-control" placeholder="Add Key Points" name="key_ru">
+                            </div>
+                        </div>
                         <hr>
                         <button class="btn btn-info text-white">
                             Submit
@@ -226,13 +252,27 @@
                 Hotel Included
             </h3>
             <hr>
+            <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+                <button class="nav-link active" id="nav-home-tab-3" data-bs-toggle="tab" data-bs-target="#nav-home-3" type="button" role="tab" aria-controls="nav-home-3" aria-selected="true">Armenian</button>
+                <button class="nav-link" id="nav-profile-tab-3" data-bs-toggle="tab" data-bs-target="#nav-profile-3" type="button" role="tab" aria-controls="nav-profile-3" aria-selected="false">English</button>
+                <button class="nav-link" id="nav-contact-tab-3" data-bs-toggle="tab" data-bs-target="#nav-contact-3" type="button" role="tab" aria-controls="nav-contact-3" aria-selected="false">Russian</button>
+            </div>
             <form action="{{ url('/admin/hotel/facility/' . $hotel->id) }}" method="POST"
                 enctype="multipart/form-data">
                 {{ csrf_field() }}
 
                 <div class="">
-                    <input type="text" class="form-control" placeholder="What is included?" name="name">
-
+                    <div class="tab-content p-3 border bg-light" id="nav-tabContent">
+                        <div class="tab-pane fade active show" id="nav-home-3" role="tabpanel" aria-labelledby="nav-home-tab-3">
+                            <input type="text" class="form-control" placeholder="What is included?" name="name_am">
+                        </div>
+                        <div class="tab-pane fade" id="nav-profile-3" role="tabpanel" aria-labelledby="nav-profile-tab-3">
+                            <input type="text" class="form-control" placeholder="What is included?" name="name">
+                        </div>
+                        <div class="tab-pane fade" id="nav-contact-3" role="tabpanel" aria-labelledby="nav-contact-tab-3">
+                            <input type="text" class="form-control" placeholder="What is included?" name="name_ru">
+                        </div>
+                    </div>
                     <hr>
                     <button class="btn btn-info text-white" type="submit">
                         Submit
@@ -278,13 +318,32 @@
                     Rooms
                 </h3>
                 <hr>
+                <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+                    <button class="nav-link active" id="nav-home-tab-4" data-bs-toggle="tab" data-bs-target="#nav-home-4" type="button" role="tab" aria-controls="nav-home-4" aria-selected="true">Armenian</button>
+                    <button class="nav-link" id="nav-profile-tab-4" data-bs-toggle="tab" data-bs-target="#nav-profile-4" type="button" role="tab" aria-controls="nav-profile-4" aria-selected="false">English</button>
+                    <button class="nav-link" id="nav-contact-tab-4" data-bs-toggle="tab" data-bs-target="#nav-contact-4" type="button" role="tab" aria-controls="nav-contact-4" aria-selected="false">Russian</button>
+                </div>
                 <form action="{{ url('/admin/hotel/room/' . $hotel->id) }}" method="POST" enctype="multipart/form-data">
                     {{ csrf_field() }}
 
                     <div class="">
-                        <input type="text" class="form-control" placeholder="Add Room" name="name">
-                        <input type="text" class="form-control mt-2" placeholder="Add Price" name="price">
-                        <input type="text" class="form-control mt-2" placeholder="Add Price" name="price2">
+                        <div class="tab-content p-3 border bg-light" id="nav-tabContent">
+                            <div class="tab-pane fade active show" id="nav-home-4" role="tabpanel" aria-labelledby="nav-home-tab-4">
+                                <input type="text" class="form-control" placeholder="Add Room" name="name_am">
+                                <input type="text" class="form-control mt-2" placeholder="Add Price" name="price_am">
+                                <input type="text" class="form-control mt-2" placeholder="Add Price" name="price2_am">
+                            </div>
+                            <div class="tab-pane fade" id="nav-profile-4" role="tabpanel" aria-labelledby="nav-profile-tab-4">
+                                <input type="text" class="form-control" placeholder="Add Room" name="name">
+                                <input type="text" class="form-control mt-2" placeholder="Add Price" name="price">
+                                <input type="text" class="form-control mt-2" placeholder="Add Price" name="price2">
+                            </div>
+                            <div class="tab-pane fade" id="nav-contact-4" role="tabpanel" aria-labelledby="nav-contact-tab-4">
+                                <input type="text" class="form-control" placeholder="Add Room" name="name_ru">
+                                <input type="text" class="form-control mt-2" placeholder="Add Price" name="price_ru">
+                                <input type="text" class="form-control mt-2" placeholder="Add Price" name="price2_ru">
+                            </div>
+                        </div>
                         <hr>
                         <button class="btn btn-info text-white" type="submit">
                             Submit
@@ -328,13 +387,27 @@
                 Useful to Know
             </h3>
             <hr>
+            <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+                <button class="nav-link active" id="nav-home-tab-5" data-bs-toggle="tab" data-bs-target="#nav-home-5" type="button" role="tab" aria-controls="nav-home-5" aria-selected="true">Armenian</button>
+                <button class="nav-link" id="nav-profile-tab-5" data-bs-toggle="tab" data-bs-target="#nav-profile-5" type="button" role="tab" aria-controls="nav-profile-5" aria-selected="false">English</button>
+                <button class="nav-link" id="nav-contact-tab-5" data-bs-toggle="tab" data-bs-target="#nav-contact-5" type="button" role="tab" aria-controls="nav-contact-5" aria-selected="false">Russian</button>
+            </div>
             <form action="{{ url('/admin/addHotelInfo/' . $hotel->id) }}" method="POST"
                 enctype="multipart/form-data">
                 {{ csrf_field() }}
 
                 <div class="">
-                    <input type="text" class="form-control" placeholder="What is useful to know?" name="name">
-
+                    <div class="tab-content p-3 border bg-light" id="nav-tabContent">
+                        <div class="tab-pane fade active show" id="nav-home-5" role="tabpanel" aria-labelledby="nav-home-tab-5">
+                            <input type="text" class="form-control" placeholder="What is useful to know?" name="name_am">
+                        </div>
+                        <div class="tab-pane fade" id="nav-profile-5" role="tabpanel" aria-labelledby="nav-profile-tab-5">
+                            <input type="text" class="form-control" placeholder="What is useful to know?" name="name">
+                        </div>
+                        <div class="tab-pane fade" id="nav-contact-5" role="tabpanel" aria-labelledby="nav-contact-tab-5">
+                            <input type="text" class="form-control" placeholder="What is useful to know?" name="name_ru">
+                        </div>
+                    </div>
                     <hr>
                     <button class="btn btn-info text-white" type="submit">
                         Submit

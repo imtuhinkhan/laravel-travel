@@ -117,15 +117,11 @@
                     </div>
 
                     <div class="detailespackage">
-                        <div><i class="fa-solid fa-dollar-sign"></i>
+                        <div><i class="fa-solid {{currency_icon()}}"></i>
                             {{ __('Price') }}
                         </div>
                         <div>
-                            @if(Session::has('currency'))
-                                {{ $tour[Session::get('currency')] }} {{ __(Session::get('currency_word')) }}
-                            @else
-                                {{ $tour->price }} {{ __('USD') }}
-                            @endif 
+                            {{convert_currency($tour->price)}} {{ __(currency_word()) }} 
                         </div>
                     </div>
                 </div>
@@ -267,16 +263,19 @@
                             <tbody>
                                 <tr>
                                     <td style="padding: 15px;">
-                                        {{ $tour->one_day_price }}
+                                        {{convert_currency($tour->one_day_price)}} {{ __(currency_word()) }} 
                                     </td>
                                     <td style="padding: 15px;">
-                                        {{ $tour->one_week_price }}
+                                        {{convert_currency($tour->one_week_price)}} {{ __(currency_word()) }} 
+
                                     </td>
                                     <td style="padding: 15px;">
-                                        {{ $tour->one_month_price }}
+                                        {{convert_currency($tour->one_month_price)}} {{ __(currency_word()) }} 
+
                                     </td>
                                     <td style="padding: 15px;">
-                                        {{ $tour->one_year_price }}
+                                        {{convert_currency($tour->one_year_price)}} {{ __(currency_word()) }} 
+
                                     </td>
                                 </tr>
                             </tbody>

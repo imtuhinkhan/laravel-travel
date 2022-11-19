@@ -3,16 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Models\DepartureTable;
+use App\Models\DepartureRu;
+use App\Models\DepartureAm;
 use App\Models\Destination;
 use App\Models\HomeTour;
 use App\Models\Image;
 use App\Models\Tour;
+use App\Models\TourRu;
+use App\Models\TourAm;
 use App\Models\TourCategory;
 use App\Models\TourFacility;
+use App\Models\TourAmFacility;
+use App\Models\TourRuFacility;
 use App\Models\TourHighlight;
+use App\Models\TourAmHighlight;
+use App\Models\TourRuHighlight;
 
 use App\Models\TourProgram;
+use App\Models\TourAmProgram;
+use App\Models\TourRuProgram;
 use App\Models\TourUseful;
+use App\Models\TourRuUseful;
+use App\Models\TourAmUseful;
 use App\Models\Type;
 use Exception;
 use Illuminate\Http\Request;
@@ -103,7 +115,6 @@ class TourController extends Controller
 
     public function store(Request $request)
     {
-
         $validate = Validator::make($request->all(), [
             "name" => "required|string",
             "type_id" => "",
@@ -113,9 +124,6 @@ class TourController extends Controller
             "home_tour_id" => "required",
             "duration" => "required",
             "price" => "required",
-            "AMD" => "",
-            "RUR" => "",
-            "EURO" => "",
             "one_day_price" => "required",
             "one_week_price" => "required",
             "one_month_price" => "required",
@@ -125,6 +133,42 @@ class TourController extends Controller
             "description" => "sometimes",
             // "is_Home" => "",
             "images" => "",
+
+            "name_ru" => "required|string",
+            "type_id_ru" => "",
+            "Itenanary_ru"=>"",
+            "category_id_ru" => "required|integer",
+            "destination_id_ru" => "required|integer",
+            "home_tour_id_ru" => "required",
+            "duration_ru" => "required",
+            "price_ru" => "required",
+            "one_day_price_ru" => "required",
+            "one_week_price_ru" => "required",
+            "one_month_price_ru" => "required",
+            "one_year_price_ru" => "required",
+            "start_date_ru" => "",
+            "end_date_ru" => "",
+            "description_ru" => "sometimes",
+            // "is_Home" => "",
+            "images_ru" => "",
+
+            "name_am" => "required|string",
+            "type_id_am" => "",
+            "Itenanary_am"=>"",
+            "category_id_am" => "required|integer",
+            "destination_id_am" => "required|integer",
+            "home_tour_id_am" => "required",
+            "duration_am" => "required",
+            "price_am" => "required",
+            "one_day_price_am" => "required",
+            "one_week_price_am" => "required",
+            "one_month_price_am" => "required",
+            "one_year_price_am" => "required",
+            "start_date_am" => "",
+            "end_date_am" => "",
+            "description_am" => "sometimes",
+            // "is_Home" => "",
+            "images_am" => "",
         ]);
 
         //if $reques->isHome 
@@ -144,9 +188,6 @@ class TourController extends Controller
                 "destination_id" => $request->destination_id,
                 "duration" => $request->duration,
                 "price" => $request->price,
-                "AMD" => $request->AMD,
-                "RUR" => $request->RUR,
-                "EURO" => $request->EURO,
                 "one_day_price" => $request->one_day_price,
                 "one_week_price" => $request->one_week_price,
                 "one_month_price" => $request->one_month_price,
@@ -157,6 +198,7 @@ class TourController extends Controller
                 // "is_Home" => $request->is_Home,
             ]);
 
+
             foreach ($request->file('images') as  $image) {
 
                 $imageName = $image->getClientOriginalName();
@@ -166,16 +208,79 @@ class TourController extends Controller
                 $image["path"] = "Tour/" . $tour->id . "/" . $imageName;
                 $image->save();
                 $tour->images()->attach($image->id);
-            
-
-               
             }
 
 
+            DB::commit();
 
+            DB::beginTransaction();
+            $tourRu = TourRu::create([
+                "name" => $request->name_ru,
+                "type_id" => $request->type_id_ru,
+                "Itenanary"=>$request->Itenanary_ru,
+                "category_id" => $request->category_id_ru,
+                "home_tour_id" => $request->home_tour_id_ru,
+                "destination_id" => $request->destination_id_ru,
+                "duration" => $request->duration_ru,
+                "price" => $request->price_ru,
+                "one_day_price" => $request->one_day_price_ru,
+                "one_week_price" => $request->one_week_price_ru,
+                "one_month_price" => $request->one_month_price_ru,
+                "one_year_price" => $request->one_year_price_ru,
+                "start_date" => $request->start_date_ru,
+                "end_date" => $request->end_date_ru,
+                "description" => $request->description_ru,
+                // "is_Home" => $request->is_Home,
+            ]);
+            
 
+            foreach ($request->file('images_ru') as  $image) {
+
+                $imageName = $image->getClientOriginalName();
+                $image->move("Tour/" . $tourRu->id . "/", $imageName);
+                $image = new Image();
+                $image["filename"] = $imageName;
+                $image["path"] = "Tour/" . $tourRu->id . "/" . $imageName;
+                $image->save();
+                $tourRu->images()->attach($image->id);
+            }
+            DB::beginTransaction();
 
             DB::commit();
+
+
+            $tourAm = TourAm::create([
+                "name" => $request->name_am,
+                "type_id" => $request->type_id_am,
+                "Itenanary"=>$request->Itenanary_am,
+                "category_id" => $request->category_id_am,
+                "home_tour_id" => $request->home_tour_id_am,
+                "destination_id" => $request->destination_id_am,
+                "duration" => $request->duration_am,
+                "price" => $request->price_am,
+                "one_day_price" => $request->one_day_price_am,
+                "one_week_price" => $request->one_week_price_am,
+                "one_month_price" => $request->one_month_price_am,
+                "one_year_price" => $request->one_year_price_am,
+                "start_date" => $request->start_date_am,
+                "end_date" => $request->end_date_am,
+                "description" => $request->description_am,
+                // "is_Home" => $request->is_Home,
+            ]);
+
+            foreach ($request->file('images_am') as  $image) {
+
+                $imageName = $image->getClientOriginalName();
+                $image->move("Tour/" . $tourAm->id . "/", $imageName);
+                $image = new Image();
+                $image["filename"] = $imageName;
+                $image["path"] = "Tour/" . $tourAm->id . "/" . $imageName;
+                $image->save();
+                $tourAm->images()->attach($image->id);
+            }
+
+            DB::commit();
+
             // return self::success("Tour added successfully!", ["data" => $image]);
             return redirect('/admin/CreateClassicTour')
                 ->with("msg", "Tour added successfully!")
@@ -255,6 +360,16 @@ class TourController extends Controller
                 "name" => $request->name,
                 "tour_id" => $id
             ]);
+
+            $tam = TourAmHighlight::create([
+                "name" => $request->name_am,
+                "tour_am_id" => $id
+            ]);
+
+            $tru = TourRuHighlight::create([
+                "name" => $request->name_ru,
+                "tour_ru_id" => $id
+            ]);
             // dd($tt);
             $tour = Tour::with('images')
                 ->with('highlights')
@@ -298,6 +413,15 @@ class TourController extends Controller
             $tt = TourUseful::create([
                 "name" => $request->name,
                 "tour_id" => $id
+            ]);
+            $tam = TourAmUseful::create([
+                "name" => $request->name_am,
+                "tour_am_id" => $id
+            ]);
+
+            $tru = TourRuUseful::create([
+                "name" => $request->name_ru,
+                "tour_ru_id" => $id
             ]);
             // dd($tt);
             $tour = Tour::with('images')
@@ -348,6 +472,23 @@ class TourController extends Controller
                 "price" => $request->price,
                 "pax" => $request->pax,
                 "tour_id" => $id
+
+            ]);
+
+            $tru = DepartureRu::create([
+                "start_date" => $request->start_date_ru,
+                "end_date" => $request->end_date_ru,
+                "price" => $request->price_ru,
+                "pax" => $request->pax_ru,
+                "tour_ru_id" => $id
+
+            ]);
+            $tru = DepartureAm::create([
+                "start_date" => $request->start_date_am,
+                "end_date" => $request->end_date_am,
+                "price" => $request->price_am,
+                "pax" => $request->pax_am,
+                "tour_am_id" => $id
 
             ]);
             // dd($tt);
@@ -509,6 +650,9 @@ class TourController extends Controller
         $highlight = TourHighlight::whereNull('deleted_at')->where('id', $id)->first();
         if ($highlight) {
             $highlight->delete();
+            $highlightAm = TourAmHighlight::whereNull('deleted_at')->where('id', $id)->delete();
+            $highlightRu = TourRuHighlight::whereNull('deleted_at')->where('id', $id)->delete();
+
             $tour = Tour::with('images')
                 ->with('highlights')
                 ->with('facility')
@@ -555,6 +699,17 @@ class TourController extends Controller
                 "unname" => $request->unname,
                 "tour_id" => $id
             ]);
+            $tam = TourAmFacility::create([
+                "name" => $request->name_am,
+                "unname" => $request->unname_am,
+                "tour_am_id" => $id
+            ]);
+
+            $tru = TourRuFacility::create([
+                "name" => $request->name_ru,
+                "unname" => $request->unname_ru,
+                "tour_ru_id" => $id
+            ]);
             // dd($tt);
             $tour = Tour::with('images')
                 ->with('highlights')
@@ -585,6 +740,15 @@ class TourController extends Controller
             ->first();
         if ($tourFacility) {
             $tourFacility->delete();
+
+            $tourAmFacility = TourAmFacility::whereNull("deleted_at")
+            ->where('id', $id)
+            ->delete();
+
+            $tourRuFacility = TourRuFacility::whereNull("deleted_at")
+            ->where('id', $id)
+            ->delete();
+
             $tour = Tour::with('images')
                 ->with('highlights')
                 ->with('facility')
@@ -640,9 +804,39 @@ class TourController extends Controller
             // return self::failure($validator->errors()->first());
         }
         $tourProgram = new TourProgram();
-        $tourProgram->fill($request->all());
-        $tourProgram["tour_id"] = $id;
+        $tourProgram->day = $request->day;
+        $tourProgram->fromTo = $request->fromTo;
+        $tourProgram->description = $request->description;
+        $tourProgram->distance = $request->distance;
+        $tourProgram->duration = $request->duration;
+        $tourProgram->food = $request->food;
+        $tourProgram->location = $request->location;
+        $tourProgram->tour_id = $id;
         $tourProgram->save();
+
+        $tourProgramRu = new TourRuProgram();
+        $tourProgramRu->day = $request->day_ru;
+        $tourProgramRu->fromTo = $request->fromTo_ru;
+        $tourProgramRu->description = $request->description_ru;
+        $tourProgramRu->distance = $request->distance_ru;
+        $tourProgramRu->duration = $request->duration_ru;
+        $tourProgramRu->food = $request->food_ru;
+        $tourProgramRu->location = $request->location_ru;
+        $tourProgramRu->tour_ru_id = $id;
+        $tourProgramRu->save();
+
+        $tourProgramAm = new TourAmProgram();
+        $tourProgramAm->day = $request->day_am;
+        $tourProgramAm->fromTo = $request->fromTo_am;
+        $tourProgramAm->description = $request->description_am;
+        $tourProgramAm->distance = $request->distance_am;
+        $tourProgramAm->duration = $request->duration_am;
+        $tourProgramAm->food = $request->food_am;
+        $tourProgramAm->location = $request->location_am;
+        $tourProgramAm->tour_am_id = $id;
+        $tourProgramAm->save();
+
+
         $tour = Tour::with('images')
             ->with('highlights')
             ->with('facility')
@@ -669,7 +863,12 @@ class TourController extends Controller
             ->first();
         if ($tourProgram) {
             $tourProgram->delete();
-
+            $tourRuProgram = TourRuProgram::whereNull('deleted_at')
+            ->where('id', $id)
+            ->delete();
+            $tourAmProgram = TourAmProgram::whereNull('deleted_at')
+            ->where('id', $id)
+            ->delete();
             $tour = Tour::with('images')
                 ->with('highlights')
                 ->with('facility')
@@ -706,6 +905,7 @@ class TourController extends Controller
             ->with('types')
             ->whereNull('deleted_at')
             ->where('id', $id)->first();
+
         //    dd($tour);
 
         $homeTour = HomeTour::all();
@@ -754,11 +954,30 @@ class TourController extends Controller
             ->with('program')
             ->where('id', $id)
             ->first();
+
+
+        $tourRu = TourRu::with('images')
+        ->with('highlights')
+    
+        ->with('useful')
+        ->with('types')
+        ->whereNull('deleted_at')
+        ->where('id', $id)->first();
+
+        $tourAm = TourAm::with('images')
+            ->with('highlights')
+        
+            ->with('useful')
+            ->with('types')
+            ->whereNull('deleted_at')
+            ->where('id', $id)->first();
         
         return view('Backend.Admin.Tours.classicTours.UpdateClassicTour', [
             "categories" => $categories,
             "destinations" => $destinations,
             "tour" => $tour,
+            "tourAm" => $tourAm,
+            "tourRu" => $tourRu,
             "homeTour" => $homeTour,
         ]);
     }
@@ -768,9 +987,69 @@ class TourController extends Controller
     {
         //
         $tour = Tour::find($id);
+        $tourAm = TourAm::find($id);
+        $tourRu = TourRu::find($id);
         
-        $tour->fill($request->all());
+        $tour->fill([
+            "name" => $request->name,
+            "type_id" => $request->type_id,
+            "Itenanary"=>$request->Itenanary,
+            "category_id" => $request->category_id,
+            "home_tour_id" => $request->home_tour_id,
+            "destination_id" => $request->destination_id,
+            "duration" => $request->duration,
+            "price" => $request->price,
+            "one_day_price" => $request->one_day_price,
+            "one_week_price" => $request->one_week_price,
+            "one_month_price" => $request->one_month_price,
+            "one_year_price" => $request->one_year_price,
+            "start_date" => $request->start_date,
+            "end_date" => $request->end_date,
+            "description" => $request->description,
+            // "is_Home" => $request->is_Home,
+        ]);
+
+        $tourRu->fill([
+            "name" => $request->name_ru,
+            "type_id" => $request->type_id_ru,
+            "Itenanary"=>$request->Itenanary_ru,
+            "category_id" => $request->category_id_ru,
+            "home_tour_id" => $request->home_tour_id_ru,
+            "destination_id" => $request->destination_id_ru,
+            "duration" => $request->duration_ru,
+            "price" => $request->price_ru,
+            "one_day_price" => $request->one_day_price_ru,
+            "one_week_price" => $request->one_week_price_ru,
+            "one_month_price" => $request->one_month_price_ru,
+            "one_year_price" => $request->one_year_price_ru,
+            "start_date" => $request->start_date_ru,
+            "end_date" => $request->end_date_ru,
+            "description" => $request->description_ru,
+            // "is_Home" => $request->is_Home,
+        ]);
+
+        $tourAm->fill([
+            "name" => $request->name_am,
+            "type_id" => $request->type_id_am,
+            "Itenanary"=>$request->Itenanary_am,
+            "category_id" => $request->category_id_am,
+            "home_tour_id" => $request->home_tour_id_am,
+            "destination_id" => $request->destination_id_am,
+            "duration" => $request->duration_am,
+            "price" => $request->price_am,
+            "one_day_price" => $request->one_day_price_am,
+            "one_week_price" => $request->one_week_price_am,
+            "one_month_price" => $request->one_month_price_am,
+            "one_year_price" => $request->one_year_price_am,
+            "start_date" => $request->start_date_am,
+            "end_date" => $request->end_date_am,
+            "description" => $request->description_am,
+            // "is_Home" => $request->is_Home,
+        ]);
+
         $tour->save();
+        $tourRu->save();
+        $tourAm->save();
        
         return redirect()
             ->back()
@@ -852,6 +1131,12 @@ class TourController extends Controller
             ->first();
         if ($tourDeparture) {
             $tourDeparture->delete();
+
+            $tourAmDeparture = DepartureAm::where('id', $id)
+            ->delete();
+
+            $tourRuDeparture = DepartureRu::where('id', $id)
+            ->delete();
             return redirect()->back()
                 ->with("msg", "Tour Departure Deleted!")
                 ->with("success", true);
