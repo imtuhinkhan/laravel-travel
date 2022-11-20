@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Image;
 use Illuminate\Http\Request;
 use App\Models\TourEvent;
+use App\Models\TourAmEvent;
+use App\Models\TourRuEvent;
 
 class TourEventController extends Controller
 {
@@ -54,6 +56,28 @@ class TourEventController extends Controller
             'price' => 'required',
             'images' => 'required',
 
+            'name_am' => 'required',
+            'location_am' => 'required',
+            'time_am' => 'required',
+            'type_am' => 'required',
+            'period_am' => 'required',
+            'settlement_am' => 'required',
+            'distance_am' => 'required',
+            'duration_am' => 'required',
+            'price_am' => 'required',
+            'images_am' => 'required',
+
+            'name_ru' => 'required',
+            'location_ru' => 'required',
+            'time_ru' => 'required',
+            'type_ru' => 'required',
+            'period_ru' => 'required',
+            'settlement_ru' => 'required',
+            'distance_ru' => 'required',
+            'duration_ru' => 'required',
+            'price_ru' => 'required',
+            'images_ru' => 'required',
+
         ]);
 
         $tour_event = TourEvent::create([
@@ -82,7 +106,55 @@ class TourEventController extends Controller
         
         }
 
-      
+        $tour_event = TourAmEvent::create([
+            'name' => $request->name_am,
+            'location' => $request->location_am,
+            'time' => $request->time_am,
+            'type' => $request->type_am,
+            'period' => $request->period_am,
+            'settlement' => $request->settlement_am,
+            'distance' => $request->distance_am,
+            'duration' => $request->duration_am,
+            'price' => $request->price_am,
+        
+        ]);
+        
+
+        foreach ($request->file('images_am') as  $image) {
+            $imageName = $image->getClientOriginalName();
+            $image->move("Event/" . $tour_event->id . "/", $imageName);
+            $image = new Image();
+            $image["filename"] = $imageName;
+            $image["path"] = "Event/" . $tour_event->id . "/" . $imageName;
+            $image->save();
+            $tour_event->images()->attach($image->id);
+        
+        }
+
+        $tour_event = TourRuEvent::create([
+            'name' => $request->name_ru,
+            'location' => $request->location_ru,
+            'time' => $request->time_ru,
+            'type' => $request->type_ru,
+            'period' => $request->period_ru,
+            'settlement' => $request->settlement_ru,
+            'distance' => $request->distance_ru,
+            'duration' => $request->duration_ru,
+            'price' => $request->price_ru,
+        
+        ]);
+        
+
+        foreach ($request->file('images_ru') as  $image) {
+            $imageName = $image->getClientOriginalName();
+            $image->move("Event/" . $tour_event->id . "/", $imageName);
+            $image = new Image();
+            $image["filename"] = $imageName;
+            $image["path"] = "Event/" . $tour_event->id . "/" . $imageName;
+            $image->save();
+            $tour_event->images()->attach($image->id);
+        
+        }
 
         return redirect()->back()->with("msg", "Created successfully!")
         ->with("success", true);
@@ -108,7 +180,10 @@ class TourEventController extends Controller
         ->with('images')
         ->where('id', $id)
         ->first();
-        return view('Backend.Admin.Armenia.Events.update', compact('tour_event'));
+        $tour_event_am = TourAmEvent::find($id);
+        $tour_event_ru = TourRuEvent::find($id);
+
+        return view('Backend.Admin.Armenia.Events.update', compact('tour_event','tour_event_am','tour_event_ru'));
     }
 
 
@@ -126,6 +201,30 @@ class TourEventController extends Controller
         $tour_event->distance = $request->distance;
         $tour_event->duration = $request->duration;
         $tour_event->price = $request->price;
+        $tour_event->save();
+
+        $tour_event = TourAmEvent::find($id);
+        $tour_event->name = $request->name_am;
+        $tour_event->location = $request->location_am;
+        $tour_event->time = $request->time_am;
+        $tour_event->type = $request->type_am;
+        $tour_event->period = $request->period_am;
+        $tour_event->settlement = $request->settlement_am;
+        $tour_event->distance = $request->distance_am;
+        $tour_event->duration = $request->duration_am;
+        $tour_event->price = $request->price_am;
+        $tour_event->save();
+
+        $tour_event = TourRuEvent::find($id);
+        $tour_event->name = $request->name_ru;
+        $tour_event->location = $request->location_ru;
+        $tour_event->time = $request->time_ru;
+        $tour_event->type = $request->type_ru;
+        $tour_event->period = $request->period_ru;
+        $tour_event->settlement = $request->settlement_ru;
+        $tour_event->distance = $request->distance_ru;
+        $tour_event->duration = $request->duration_ru;
+        $tour_event->price = $request->price_ru;
         $tour_event->save();
         
         return redirect()->back()->with("msg", "Updated successfully!")
