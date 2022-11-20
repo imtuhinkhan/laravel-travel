@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\BlogCMS;
 use App\Models\Image;
 use App\Models\TravelBlog;
+use App\Models\TravelAmBlog;
+use App\Models\TravelRuBlog;
 use Illuminate\Http\Request;
 
 class TravelBlogController extends Controller
@@ -32,6 +34,18 @@ class TravelBlogController extends Controller
             'description' => 'required',
             'more_description' => 'required',
             'images' => 'required',
+
+            'title_am' => 'required',
+            'type_am' => 'required',
+            'description_am' => 'required',
+            'more_description_am' => 'required',
+            'images_am' => 'required',
+
+            'title_ru' => 'required',
+            'type_ru' => 'required',
+            'description_ru' => 'required',
+            'more_description_ru' => 'required',
+            'images_ru' => 'required',
         ]);
         $travelBlog = TravelBlog::create([
             'title' => $request->title,
@@ -40,6 +54,38 @@ class TravelBlogController extends Controller
             'description' => $request->description,
         ]);
         foreach ($request->file('images') as  $image) {
+            $imageName = $image->getClientOriginalName();
+            $image->move("TravelBlog/" . $travelBlog->id . "/", $imageName);
+            $image = new Image();
+            $image["filename"] = $imageName;
+            $image["path"] = "TravelBlog/" . $travelBlog->id . "/" . $imageName;
+            $image->save();
+            $travelBlog->images()->attach($image->id);
+        }
+
+        $travelBlog = TravelAmBlog::create([
+            'title' => $request->title_am,
+            'type' => $request->type_am,
+            'more_description' => $request->more_description_am,
+            'description' => $request->description_am,
+        ]);
+        foreach ($request->file('images_am') as  $image) {
+            $imageName = $image->getClientOriginalName();
+            $image->move("TravelBlog/" . $travelBlog->id . "/", $imageName);
+            $image = new Image();
+            $image["filename"] = $imageName;
+            $image["path"] = "TravelBlog/" . $travelBlog->id . "/" . $imageName;
+            $image->save();
+            $travelBlog->images()->attach($image->id);
+        }
+
+        $travelBlog = TravelRuBlog::create([
+            'title' => $request->title_ru,
+            'type' => $request->type_ru,
+            'more_description' => $request->more_description_ru,
+            'description' => $request->description_ru,
+        ]);
+        foreach ($request->file('images_ru') as  $image) {
             $imageName = $image->getClientOriginalName();
             $image->move("TravelBlog/" . $travelBlog->id . "/", $imageName);
             $image = new Image();
@@ -65,7 +111,9 @@ class TravelBlogController extends Controller
     public function edit($id)
     {
         $travelBlog = TravelBlog::find($id);
-        return view('Backend.Admin.Armenia.TravelBlog.update', compact('travelBlog'));
+        $travelBlogAm = TravelAmBlog::find($id);
+        $travelBlogRu = TravelRuBlog::find($id);
+        return view('Backend.Admin.Armenia.TravelBlog.update', compact('travelBlog','travelBlogAm','travelBlogRu'));
     }
 
    
@@ -73,7 +121,25 @@ class TravelBlogController extends Controller
     {
        // update
        $travelBlog = TravelBlog::find($id);
-       $travelBlog->update($request->all());
+       $travelBlog->title = $request->title;
+       $travelBlog->type = $request->type;
+       $travelBlog->more_description = $request->more_description;
+       $travelBlog->description = $request->description;
+       $travelBlog->save();
+
+       $travelBlog = TravelAmBlog::find($id);
+       $travelBlog->title = $request->title_am;
+       $travelBlog->type = $request->type_am;
+       $travelBlog->more_description = $request->more_description_am;
+       $travelBlog->description = $request->description_am;
+       $travelBlog->save();
+
+       $travelBlog = TravelRuBlog::find($id);
+       $travelBlog->title = $request->title_ru;
+       $travelBlog->type = $request->type_ru;
+       $travelBlog->more_description = $request->more_description_ru;
+       $travelBlog->description = $request->description_ru;
+       $travelBlog->save();
       
        return redirect()->back()->with("msg", "Upadated successfully!")
        ->with("success", true);
@@ -83,6 +149,12 @@ class TravelBlogController extends Controller
     public function destroy($id)
     {
         $travelBlog = TravelBlog::find($id);
+        $travelBlog->delete();
+
+        $travelBlog = TravelAmBlog::find($id);
+        $travelBlog->delete();
+
+        $travelBlog = TravelRuBlog::find($id);
         $travelBlog->delete();
         return redirect()->back()->with("msg", "Deleted successfully!")
         ->with("success", true);
