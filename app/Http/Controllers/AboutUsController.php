@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\AboutUs;
+use App\Models\AboutUsAm;
+use App\Models\AboutUsRu;
 use Illuminate\Http\Request;
 
 class AboutUsController extends Controller
@@ -27,12 +29,28 @@ class AboutUsController extends Controller
         $request->validate([
             'title' => 'required',
             'description' => 'required',
+
+            'title_am' => 'required',
+            'description_am' => 'required',
+
+            'title_ru' => 'required',
+            'description_ru' => 'required',
         ]);
 
         $aboutUs = new AboutUs();
         $aboutUs->title = $request->title;
         $aboutUs->description = $request->description;
         $aboutUs->save();
+
+        $aboutUsAm = new AboutUsAm();
+        $aboutUsAm->title = $request->title_am;
+        $aboutUsAm->description = $request->description_am;
+        $aboutUsAm->save();
+
+        $aboutUsRu = new AboutUsRu();
+        $aboutUsRu->title = $request->title_ru;
+        $aboutUsRu->description = $request->description_ru;
+        $aboutUsRu->save();
         return redirect()->back()
             ->with("msg", "Added successfully!")
             ->with("success", true);
