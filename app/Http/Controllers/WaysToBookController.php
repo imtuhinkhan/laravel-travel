@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\WaysToBook;
+use App\Models\WayToBookAm;
+use App\Models\WayToBookRu;
 use Illuminate\Http\Request;
 
 class WaysToBookController extends Controller
@@ -26,11 +28,27 @@ class WaysToBookController extends Controller
         $this->validate($request, [
             'title' => 'required',
             'description' => 'required',
+
+            'title_am' => 'required',
+            'description_am' => 'required',
+
+            'title_ru' => 'required',
+            'description_ru' => 'required',
         ]);
         $ways = new WaysToBook;
         $ways->title = $request->title;
         $ways->description = $request->description;
         $ways->save();
+
+        $waysAm = new WayToBookAm;
+        $waysAm->title = $request->title_am;
+        $waysAm->description = $request->description_am;
+        $waysAm->save();
+
+        $waysRu = new WayToBookRu;
+        $waysRu->title = $request->title_ru;
+        $waysRu->description = $request->description_ru;
+        $waysRu->save();
         return redirect()->back()->with("msg", "Created successfully!")
         ->with("success", true);
     }
@@ -41,6 +59,12 @@ class WaysToBookController extends Controller
     //delete
     $ways = WaysToBook::find($id);
     $ways->delete();
+
+    $waysAm = WayToBookAm::find($id);
+    $waysAm->delete();
+
+    $waysRu = WayToBookRu::find($id);
+    $waysRu->delete();
     return redirect()->back()->with("msg", "Deleted successfully!")
         ->with("success", true);
     }
