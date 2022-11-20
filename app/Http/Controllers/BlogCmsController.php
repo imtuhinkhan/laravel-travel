@@ -23,10 +23,20 @@ class BlogCmsController extends Controller
         $this->validate($request, [
             'title' => 'required',
             'subtitle' => 'required',
+
+            'title_am' => 'required',
+            'subtitle_am' => 'required',
+
+            'title_ru' => 'required',
+            'subtitle_ru' => 'required',
         ]);
         $blog = BlogCMS::find($id);
         $blog->title = $request->title;
         $blog->subtitle = $request->subtitle;
+        $blog->title_am = $request->title_am;
+        $blog->subtitle_am = $request->subtitle_am;
+        $blog->title_ru = $request->title_ru;
+        $blog->subtitle_ru= $request->subtitle_ru;
         $blog->save();
         return redirect()->back()->with("msg", "Updated successfully!")
         ->with("success", true);

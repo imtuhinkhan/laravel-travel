@@ -17,6 +17,10 @@ class CreateHotelCMSTable extends Migration
             $table->id();
             $table->string('title')->nullable();
             $table->text('description')->nullable();
+            $table->string('title_am')->nullable();
+            $table->text('description_am')->nullable();
+            $table->string('title_ru')->nullable();
+            $table->text('description_ru')->nullable();
             $table->timestamps();
         });
     }

@@ -62,7 +62,35 @@
                                         <div class="form-group row">
                                             <label class="col-form-label col-md-2">Overview</label>
                                             <div class="col-md-10">
-                                                <textarea value="{{ $blog->subtitle }}" rows="5" cols="5" class="form-control" placeholder="Enter text here" name="subtitle"></textarea>
+                                                <textarea rows="5" cols="5" class="form-control" placeholder="Enter text here" name="subtitle">{{$blog->subtitle}}</textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-md-2">Blog Title (Russian)</label>
+                                            <div class="col-md-10">
+                                                <input value="{{ $blog->title_ru }}" type="text" class="form-control" name="title_ru">
+                                            </div>
+                                        </div>
+                                     
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-md-2">Overview (Russian)</label>
+                                            <div class="col-md-10">
+                                                <textarea rows="5" cols="5" class="form-control" placeholder="Enter text here" name="subtitle_ru">{{ $blog->subtitle_ru }}</textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-md-2">Blog Title (Armenia)</label>
+                                            <div class="col-md-10">
+                                                <input value="{{ $blog->title_am }}" type="text" class="form-control" name="title_am">
+                                            </div>
+                                        </div>
+                                     
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-md-2">Overview (Armenia)</label>
+                                            <div class="col-md-10">
+                                                <textarea rows="5" cols="5" class="form-control" placeholder="Enter text here" name="subtitle_am">{{ $blog->subtitle_am }}</textarea>
                                             </div>
                                         </div>
 

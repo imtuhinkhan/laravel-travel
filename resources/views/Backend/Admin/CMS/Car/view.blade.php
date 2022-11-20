@@ -55,14 +55,42 @@
                                         <div class="form-group row">
                                             <label class="col-form-label col-md-2">Cars Title</label>
                                             <div class="col-md-10">
-                                                <input type="text" class="form-control" name="title">
+                                                <input type="text" class="form-control" name="title" value="{{$car->title}}">
                                             </div>
                                         </div>
                                      
                                         <div class="form-group row">
                                             <label class="col-form-label col-md-2">Overview</label>
                                             <div class="col-md-10">
-                                                <textarea rows="5" cols="5" class="form-control" placeholder="Enter text here" name="description"></textarea>
+                                                <textarea rows="5" cols="5" class="form-control" placeholder="Enter text here" name="description">{{$car->description}}</textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-md-2">Cars Title (Russian)</label>
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control" name="title_ru" value="{{$car->title_ru}}">
+                                            </div>
+                                        </div>
+                                     
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-md-2">Overview (Russian)</label>
+                                            <div class="col-md-10">
+                                                <textarea rows="5" cols="5" class="form-control" placeholder="Enter text here" name="description_ru">{{$car->description_ru}}</textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-md-2">Cars Title (Armenia)</label>
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control" name="title_am" value="{{$car->title_am}}">
+                                            </div>
+                                        </div>
+                                     
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-md-2">Overview (Armenia)</label>
+                                            <div class="col-md-10">
+                                                <textarea rows="5" cols="5" class="form-control" placeholder="Enter text here" name="description_am">{{$car->description_am}}</textarea>
                                             </div>
                                         </div>
 

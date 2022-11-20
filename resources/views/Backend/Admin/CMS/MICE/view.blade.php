@@ -55,14 +55,42 @@
                                         <div class="form-group row">
                                             <label class="col-form-label col-md-2">Hotel Title</label>
                                             <div class="col-md-10">
-                                                <input type="text" class="form-control" name="title">
+                                                <input type="text" class="form-control" name="title" value="{{$mice->title}}">
                                             </div>
                                         </div>
                                      
                                         <div class="form-group row">
                                             <label class="col-form-label col-md-2">Overview</label>
                                             <div class="col-md-10">
-                                                <textarea rows="5" cols="5" class="form-control" placeholder="Enter text here" name="description"></textarea>
+                                                <textarea rows="5" cols="5" class="form-control" placeholder="Enter text here" name="description">{{$mice->description}}</textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-md-2">Hotel Title (Russian)</label>
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control" name="title_ru" value="{{$mice->title_ru}}">
+                                            </div>
+                                        </div>
+                                     
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-md-2">Overview (Russian)</label>
+                                            <div class="col-md-10">
+                                                <textarea rows="5" cols="5" class="form-control" placeholder="Enter text here" name="description_ru">{{$mice->description_ru}}</textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-md-2">Hotel Title (Armenia) </label>
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control" name="title_am" value="{{$mice->title_am}}">
+                                            </div>
+                                        </div>
+                                     
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-md-2">Overview (Armenia)</label>
+                                            <div class="col-md-10">
+                                                <textarea rows="5" cols="5" class="form-control" placeholder="Enter text here" name="description_am">{{$mice->description_am}}</textarea>
                                             </div>
                                         </div>
 

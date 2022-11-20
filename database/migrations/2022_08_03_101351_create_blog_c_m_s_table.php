@@ -17,6 +17,10 @@ class CreateBlogCMSTable extends Migration
             $table->id();
             $table->string('title')->nullable();
             $table->text('subtitle')->nullable();
+            $table->string('title_ru')->nullable();
+            $table->text('subtitle_ru')->nullable();
+            $table->string('title_am')->nullable();
+            $table->text('subtitle_am')->nullable();
             $table->timestamps();
         });
     }

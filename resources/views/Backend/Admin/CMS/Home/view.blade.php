@@ -80,14 +80,42 @@
                                         <div class="form-group row">
                                             <label class="col-form-label col-md-2">Home Title</label>
                                             <div class="col-md-10">
-                                                <input type="text" class="form-control" name="title">
+                                                <input type="text" class="form-control" name="title" value="{{$homeContent->title}}">
                                             </div>
                                         </div>
                                      
                                         <div class="form-group row">
                                             <label class="col-form-label col-md-2">Overview</label>
                                             <div class="col-md-10">
-                                                <textarea rows="5" cols="5" class="form-control" placeholder="Enter text here" name="subtitle"></textarea>
+                                                <textarea rows="5" cols="5" class="form-control" placeholder="Enter text here" name="subtitle">{{$homeContent->subtitle}}</textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-md-2">Home Title (Russian)</label>
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control" name="title_ru" value="{{$homeContent->title_ru}}">
+                                            </div>
+                                        </div>
+                                     
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-md-2">Overview (Russian)</label>
+                                            <div class="col-md-10">
+                                                <textarea rows="5" cols="5" class="form-control" placeholder="Enter text here" name="subtitle_ru">{{$homeContent->subtitle_ru}}</textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-md-2">Home Title (Armenia)</label>
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control" name="title_am" value="{{$homeContent->title_am}}">
+                                            </div>
+                                        </div>
+                                     
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-md-2">Overview (Armenia)</label>
+                                            <div class="col-md-10">
+                                                <textarea rows="5" cols="5" class="form-control" placeholder="Enter text here" name="subtitle_am">{{$homeContent->subtitle_am}}</textarea>
                                             </div>
                                         </div>
 

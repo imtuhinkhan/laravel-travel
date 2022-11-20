@@ -23,10 +23,20 @@ class MiceCmsController extends Controller
         $this->validate($request, [
             'title' => 'required',
             'description' => 'required',
+
+            'title_ru' => 'required',
+            'description_ru' => 'required',
+
+            'title_am' => 'required',
+            'description_am' => 'required',
         ]);
         $mice = MiceCMS::find($id);
         $mice->title = $request->title;
         $mice->description = $request->description;
+        $mice->title_ru = $request->title_ru;
+        $mice->description_ru = $request->description_ru;
+        $mice->title_am = $request->title_am;
+        $mice->description_am = $request->description_am;
         $mice->save();
         return redirect()->back()->with("msg", "Updated successfully!")
         ->with("success", true);
