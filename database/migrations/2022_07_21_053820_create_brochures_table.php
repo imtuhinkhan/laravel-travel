@@ -16,6 +16,8 @@ class CreateBrochuresTable extends Migration
         Schema::create('brochures', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('name_am');
+            $table->string('name_ru');
             $table->string('file_name');
             $table->timestamps();
         });

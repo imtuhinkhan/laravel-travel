@@ -25,6 +25,8 @@ class BrochureController extends Controller
         $request->validate([
             'name' => 'required',
             'file_name' => 'required',
+            'name_am' => 'required',
+            'name_ru' => 'required',
             'images' => 'required',
         ]);
 
@@ -35,6 +37,8 @@ class BrochureController extends Controller
 
         $brochure = Brochure::create([
             'name' => $request->name,
+            'name_am' => $request->name_am,
+            'name_ru' => $request->name_ru,
             'file_name' => $request->file_name->getClientOriginalName(),
         ]);
 
