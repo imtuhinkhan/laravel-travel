@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\relatedTour;
 use App\Models\Review;
 use App\Models\Tour;
 use App\Models\TourRu;
@@ -10,6 +9,7 @@ use App\Models\TourAm;
 use App\Models\TourCategory;
 use App\Models\TourCMS;
 use Illuminate\Http\Request;
+use App\Models\RelatedTour;
 
 class ClassicTour extends Controller
 {
@@ -45,7 +45,11 @@ class ClassicTour extends Controller
         if (isset($locale) && in_array($locale, config('app.available_locales'))) {
             app()->setLocale($locale);
         }
-
+        $related = RelatedTour::where('tour_id',$id)->pluck('related_tour_id');
+        $relatedTour = [];
+        foreach($related as $row){
+            $relatedTour[]= $row;
+        }
         if(app()->getLocale()=='hy'){
             $tour = TourAm::with('images')
             ->with('highlights')
@@ -55,6 +59,16 @@ class ClassicTour extends Controller
             ->with('useful')
             ->with('departureTable')
             ->where('id', $id)->first();
+       
+        //admin will select from the option tour to show in related tours sections
+
+        $relatedTour = TourAm::whereIn('id', $relatedTour)
+            ->with('category')
+            // ->where('id', '!=', $tour->id)
+            ->with('images')
+            ->inRandomOrder()
+            ->take(3)
+            ->get();
         }
         elseif(app()->getLocale()=='ru'){
           
@@ -66,6 +80,13 @@ class ClassicTour extends Controller
             ->with('useful')
             ->with('departureTable')
             ->where('id', $id)->first();
+            $relatedTour = TourRu::whereIn('id', $relatedTour)
+            ->with('category')
+            // ->where('id', '!=', $tour->id)
+            ->with('images')
+            ->inRandomOrder()
+            ->take(3)
+            ->get();
         }else{
 
             $tour = Tour::with('images')
@@ -76,21 +97,19 @@ class ClassicTour extends Controller
             ->with('useful')
             ->with('departureTable')
             ->where('id', $id)->first();
-         }
 
-         
-        $category = TourCategory::where('id', 1)->first();
-
-
-        //admin will select from the option tour to show in related tours sections
-
-        $relatedTour = Tour::where('related_id', $id)
+            $relatedTour = Tour::whereIn('id', $relatedTour)
             ->with('category')
             // ->where('id', '!=', $tour->id)
             ->with('images')
             ->inRandomOrder()
             ->take(3)
             ->get();
+         }
+
+        $category = TourCategory::where('id', 1)->first();
+
+        
 
         // $related = relatedTour::where($id, 'tour_id');
 

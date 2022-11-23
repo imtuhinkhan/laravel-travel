@@ -25,6 +25,7 @@ use App\Models\TourRuProgram;
 use App\Models\TourUseful;
 use App\Models\TourRuUseful;
 use App\Models\TourAmUseful;
+use App\Models\RelatedTour;
 use App\Models\Type;
 use Exception;
 use Illuminate\Http\Request;
@@ -89,7 +90,7 @@ class TourController extends Controller
         ->with('useful')
         ->with('types')
         ->whereNull('deleted_at')
-        ->where('related_id', $id)->get();
+        ->where('id', '!=', $id)->get();
 
 
 
@@ -97,13 +98,19 @@ class TourController extends Controller
         $type = Type::all();
         $destinations = Destination::all();
         $categories = TourCategory::all();
+        $related = RelatedTour::where('tour_id',$id)->pluck('related_tour_id');
+        $relatedTour = [];
+        foreach($related as $row){
+            $relatedTour[]= $row;
+        }
         return view('Backend.Admin.Tours.related.related', [
             "categories" => $categories,
             "destinations" => $destinations,
             "type" => $type,
             "homeTour" => $homeTour,
             "tour"=>$tour,
-            "tours"=>$tours
+            "tours"=>$tours,
+            "relatedTour"=>$relatedTour,
         ]);
     }
 
@@ -111,7 +118,6 @@ class TourController extends Controller
     {
         dd($request->all());
     }
-
 
     public function store(Request $request)
     {
@@ -515,132 +521,24 @@ class TourController extends Controller
         }
     }
 
-    function addRelated(Request $request, $id)
+    function addRelated($rid,$pid)
     {
-
-        $validate = Validator::make($request->all(), [
-            "name" => "required|string",
-            "type_id" => "",
-            "Itenanary"=>"",
-            "category_id" => "required|integer",
-            "destination_id" => "required|integer",
-            "home_tour_id" => "required",
-            "duration" => "required",
-            "price" => "required",
-            "AMD" => "",
-            "RUR" => "",
-            "EURO" => "",
-            "one_day_price" => "required",
-            "one_week_price" => "required",
-            "one_month_price" => "required",
-            "one_year_price" => "required",
-            "start_date" => "",
-            "end_date" => "",
-            "description" => "sometimes",
-            // "is_Home" => "",
-            "images" => "",
-        ]);
-
-        //if $reques->isHome 
-
-        if ($validate->fails()) {
-            return redirect()->back()->withErrors($validate)->withInput();
-        }
-        try {
-            DB::beginTransaction();
-
-            $tour = Tour::create([
-                "name" => $request->name,
-                "type_id" => $request->type_id,
-                "Itenanary"=>$request->Itenanary,
-                "category_id" => $request->category_id,
-                "home_tour_id" => $request->home_tour_id,
-                "destination_id" => $request->destination_id,
-                "duration" => $request->duration,
-                "price" => $request->price,
-                "AMD" => $request->AMD,
-                "RUR" => $request->RUR,
-                "EURO" => $request->EURO,
-                "one_day_price" => $request->one_day_price,
-                "one_week_price" => $request->one_week_price,
-                "one_month_price" => $request->one_month_price,
-                "one_year_price" => $request->one_year_price,
-                "start_date" => $request->start_date,
-                "end_date" => $request->end_date,
-                "description" => $request->description,
-                "related_id" => $id,
-                // "is_Home" => $request->is_Home,
-            ]);
-
-            foreach ($request->file('images') as  $image) {
-
-                $imageName = $image->getClientOriginalName();
-                $image->move("Tour/" . $tour->id . "/", $imageName);
-                $image = new Image();
-                $image["filename"] = $imageName;
-                $image["path"] = "Tour/" . $tour->id . "/" . $imageName;
-                $image->save();
-                $tour->images()->attach($image->id);
-            
-
-               
-            }
-
-            DB::commit();
-            // return self::success("Tour added successfully!", ["data" => $image]);
-            return redirect()
-            ->back()
-                ->with("msg", "Related Tour added successfully!")
-                ->with("success", true);
-        }  catch (Exception $e) {
-            return redirect()
-                ->back()
-                ->with("msg", $e->getMessage())
-                ->with("fail", true);
-            // return self::failure("Error in adding tour highlight", $e->getMessage());
-        }
-
-
-
-        // $validate = Validator::make($request->all(), [
-        //     // "tour_id" => "",
-        //    "name" => '',
-        // ]);
-        // if ($validate->fails()) {
-        //     return redirect("/admin/tours/detail/" . $id)
-        //         ->with("msg", $validate->errors()->first())
-        //         ->with("fail", true);
-
-        //     // return self::failure($validate->errors()->first());
-        // }
-        // try {
-        //     $tt = relatedTour::create([
-        //         "tour_id" => $id,
-        //         "name" => $request->name,
-        //     ]);
-        //     // dd($tt);
-        //     $tour = Tour::with('images')
-        //         ->with('highlights')
-        //         ->with('program')
-        //         ->with('facility')
-        //         ->with('useful')
-        //        
-        //         ->with('departureTable')
-        //         ->where("id", $id)
-        //         ->whereNull('deleted_at')
-        //         ->first();
-        //     return redirect()
-        //     ->back()
-        //         ->with("msg", "Added successfully!")
-        //         ->with("success", true)
-        //         ->with('tour', $tour);
-        //     // return self::success("Tour highlights added!", $tourHighlights);
-        // } catch (Exception $e) {
-        //     return redirect("/admin/tours/detail/" . $id)
-        //         ->with("msg", $e->getMessage())
-        //         ->with("fail", true);
-        //     // return self::failure("Error in adding tour highlight", $e->getMessage());
-        // }
+        $related = new RelatedTour();
+        $related->tour_id = $pid;
+        $related->related_tour_id = $rid;
+        $related->save();
+        return redirect("/admin/createRelated/" . $pid)
+        ->with("msg", "Added successfully!")
+        ->with("success", true);
+        
+    }
+    function removeRelated($rid,$pid)
+    {
+        $related = RelatedTour::where([['tour_id',$pid],['related_tour_id',$rid]])->delete();
+        return redirect("/admin/createRelated/" . $pid)
+        ->with("msg", "Removed successfully!")
+        ->with("success", true);
+        
     }
 
 

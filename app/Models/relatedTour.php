@@ -15,8 +15,5 @@ class relatedTour extends Model
     {
         return $this->belongsTo(Tour::class);
     }
-
-    
-
    
 }

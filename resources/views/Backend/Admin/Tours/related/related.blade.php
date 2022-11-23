@@ -16,12 +16,13 @@
 <div class="page-header">
     <div class="row">
         <div class="col-sm-12">
-            <h2 class="page-title" style="text-align: center">Create Related Tour</h2>
+            <h2 class="page-title" style="text-align: center">Add Related Tour</h2>
+            <h4 style="text-align: center; background:rgb(131, 223, 248);">{{ $tour->name }}</h4>
         </div>
     </div>
 </div>
 
-<div class="row">
+{{-- <div class="row">
     <div class="col-sm-12">
         <div class="card" style="box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;">
             <div class="card-header">
@@ -180,7 +181,7 @@
         </div>
 
     </div>
-</div>
+</div> --}}
 
 
 <div class="row">
@@ -197,7 +198,7 @@
                                 <th class="text-center">Start Date</th>
                                 <th class="text-center">End Date</th>
                                 <th class="text-center">Price</th>
-                                <th class="text-end">Status</th>
+                                <th class="text-end">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -214,34 +215,19 @@
                                     </td>
                                     <td class="text-end">
                                         <div class="font-weight-600 text-danger float-end" style="display: flex">
+                                            @if(!in_array($touritem->id, $relatedTour))
                                             <span>
-                                                <a href="{{ url('/admin/tours/detail', $touritem->id) }}">
-                                                    <button type="button"
-                                                        style="box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;"
-                                                        class="btn btn-success">Detail</button>
+                                                <a href="{{ url('/') }}/admin/tours/{{$touritem->id}}/add-related/{{$tour->id}}" class="btn btn-info" style="margin-right:10px; ">
+                                                    Add
                                                 </a>
                                             </span>
+                                            @else
                                             <span>
-                                                <!-- <a href="{{ url('/admin/UpdateClassicTour') }}"> -->
-                                                <a href="/admin/UpdateTourPage/{{ $touritem->id }}">
-                                                    <button type="button"
-                                                        style="box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px; color:white"
-                                                        class="btn btn-info">Update</button>
+                                                <a href="{{ url('/')}}/admin/tours/{{$touritem->id}}/remove-related/{{$tour->id}}" class="btn btn-danger">
+                                                    Remove
                                                 </a>
                                             </span>
-                                             
-                                            <span>
-                                                <form method="POST" action="/admin/tour/delete/{{ $touritem->id }}">
-                                                    {{ csrf_field() }}
-                                                    {{ method_field('DELETE') }}
-
-                                                    <div class="form-group">
-                                                        <input type="submit" class="btn btn-danger delete-user"
-                                                            value="Delete">
-                                                    </div>
-                                                </form>
-                                                <!-- <button type="button" class="btn btn-danger">Delete</button> -->
-                                            </span>
+                                            @endif
                                         </div>
                                     </td>
                                 </tr>

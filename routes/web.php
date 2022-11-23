@@ -217,6 +217,10 @@ Route::group(['middleware' => ['admin']], function () {
     Route::post('/storeStepanakerts', [AdminDestinationController::class, 'storeStepanakerts']);
     Route::post('/storeTbilisis', [AdminDestinationController::class, 'storeTbilisis']);
 
+    //=============Related Tour ====================
+    Route::get('/admin/tours/{rid}/add-related/{pid}/{locale?}', [TourController::class, 'addRelated']);
+    Route::get('/admin/tours/{rid}/remove-related/{pid}/{locale?}', [TourController::class, 'removeRelated']);
+
 
     //============ Add facility page==============
 
@@ -667,6 +671,8 @@ Route::post('/BookATent/store/{id}', [BookingAccessioriesController::class, 'sto
 //==========Book Mice=========
 Route::get('/BookMice/{id}/{locale?}', [BookingMiceController::class, 'BookMice']);
 Route::post('/BookMice/store/{id}', [BookingMiceController::class, 'store']);
+
+//Related Tour
 
 
 //======Contact Us=======
