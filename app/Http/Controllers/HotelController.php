@@ -568,13 +568,29 @@ class HotelController extends Controller
         if (isset($locale) && in_array($locale, config('app.available_locales'))) {
             app()->setLocale($locale);
         }
-
-        $hotels = Hotel::with('images')
+        if(app()->getLocale()=='hy'){
+            $hotels = HotelAm::with('images')
             ->with('highlights')
             ->with('rooms')
             ->orderby('created_at', 'desc')
             ->whereNull('deleted_at')
             ->simplePaginate(5);
+        }
+        elseif(app()->getLocale()=='ru'){
+            $hotels = HotelRu::with('images')
+            ->with('highlights')
+            ->with('rooms')
+            ->orderby('created_at', 'desc')
+            ->whereNull('deleted_at')
+            ->simplePaginate(5);
+        }else{
+            $hotels = Hotel::with('images')
+            ->with('highlights')
+            ->with('rooms')
+            ->orderby('created_at', 'desc')
+            ->whereNull('deleted_at')
+            ->simplePaginate(5);
+        }
         $hotelType = HotelType::all();
         $region = Region::all();
         $destination = Destination::all();
@@ -591,7 +607,8 @@ class HotelController extends Controller
         if (isset($locale) && in_array($locale, config('app.available_locales'))) {
             app()->setLocale($locale);
         }
-        $hotels = Hotel::with('images')
+        if(app()->getLocale()=='hy'){
+            $hotels = HotelAm::with('images')
             ->with('highlights')
             ->with('hotelInfo')
             ->with('hotelFacilities')
@@ -600,6 +617,28 @@ class HotelController extends Controller
             ->with('hotelKeys')
             ->where('id', $id)
             ->first();
+        }elseif(app()->getLocale()=='hy'){
+            $hotels = HotelRu::with('images')
+            ->with('highlights')
+            ->with('hotelInfo')
+            ->with('hotelFacilities')
+            ->with('rooms')
+            ->with('hotelType')
+            ->with('hotelKeys')
+            ->where('id', $id)
+            ->first();
+        }else{
+            $hotels = Hotel::with('images')
+            ->with('highlights')
+            ->with('hotelInfo')
+            ->with('hotelFacilities')
+            ->with('rooms')
+            ->with('hotelType')
+            ->with('hotelKeys')
+            ->where('id', $id)
+            ->first();
+        }
+        
 
             $foods = FoodArmenia::with('images')
             // ->random()

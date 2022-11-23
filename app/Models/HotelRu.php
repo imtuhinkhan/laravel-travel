@@ -14,14 +14,14 @@ class HotelRu extends Model
 
     public function highlights()
     {
-        return $this->hasMany(HotelHighlights::class);
+        return $this->hasMany(HotelRuHighlights::class);
     }
 
 
 
     public function rooms()
     {
-        return $this->hasMany(HotelRoom::class);
+        return $this->hasMany(HotelRuRoom::class);
     }
 
     public function images()
@@ -37,12 +37,12 @@ class HotelRu extends Model
 
     public function hotelFacilities()
     {
-        return $this->hasMany(HotelFacility::class);
+        return $this->hasMany(HotelRuFacility::class);
     }
 
     public function hotelInfo()
     {
-        return $this->hasMany(HotelInfo::class);
+        return $this->hasMany(HotelRuInfo::class);
     }
 
     public function hotelType()
@@ -63,7 +63,7 @@ class HotelRu extends Model
 
     public function hotelKeys()
     {
-        return $this->hasMany(HotelKey::class, 'hotel_id');
+        return $this->hasMany(HotelRuKey::class, 'hotel_ru_id');
     }
 
     //booking a room
