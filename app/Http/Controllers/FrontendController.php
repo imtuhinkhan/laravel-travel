@@ -48,7 +48,8 @@ class FrontendController extends Controller
     public function searchTour($id)
     {
 
-        $tour = Tour::with('images')
+        if(app()->getLocale()=='hy'){
+            $tour = TourAm::with('images')
             ->with('highlights')
             ->with('facility')
             ->with('program')
@@ -57,7 +58,50 @@ class FrontendController extends Controller
             ->with('departureTable')
             ->where('id', $id)->first();
 
-        $category = TourCategory::where('id', 1)->first();
+
+
+        //admin will select from the option tour to show in related tours sections
+
+        $relatedTour = TourAm::where('related_id', $id)
+            ->with('category')
+            // ->where('id', '!=', $tour->id)
+            ->with('images')
+            ->inRandomOrder()
+            ->take(3)
+            ->get();
+        }
+        elseif(app()->getLocale()=='ru'){
+            $tour = TourRu::with('images')
+            ->with('highlights')
+            ->with('facility')
+            ->with('program')
+            ->with('types')
+            ->with('useful')
+            ->with('departureTable')
+            ->where('id', $id)->first();
+
+
+
+        //admin will select from the option tour to show in related tours sections
+
+        $relatedTour = TourRu::where('related_id', $id)
+            ->with('category')
+            // ->where('id', '!=', $tour->id)
+            ->with('images')
+            ->inRandomOrder()
+            ->take(3)
+            ->get();
+
+        }else{
+            $tour = Tour::with('images')
+            ->with('highlights')
+            ->with('facility')
+            ->with('program')
+            ->with('types')
+            ->with('useful')
+            ->with('departureTable')
+            ->where('id', $id)->first();
+
 
 
         //admin will select from the option tour to show in related tours sections
@@ -69,6 +113,11 @@ class FrontendController extends Controller
             ->inRandomOrder()
             ->take(3)
             ->get();
+        }
+        
+        
+
+        $category = TourCategory::where('id', 1)->first();
 
 
 
@@ -153,13 +202,33 @@ class FrontendController extends Controller
     public function tourDescription($id)
     {
         //get tour
-        $tour = Tour::with('images')
+        if(app()->getLocale()=='hy'){
+            $tour = TourAm::with('images')
             ->with('facility')
             ->with('highlights')
             ->with('program')
             ->with('category')
             ->where('id', $id)
             ->first();
+        }
+        elseif(app()->getLocale()=='ru'){
+            $tour = TourRu::with('images')
+            ->with('facility')
+            ->with('highlights')
+            ->with('program')
+            ->with('category')
+            ->where('id', $id)
+            ->first();
+        }else{
+            $tour = Tour::with('images')
+            ->with('facility')
+            ->with('highlights')
+            ->with('program')
+            ->with('category')
+            ->where('id', $id)
+            ->first();
+        }
+        
         return view('Frontend.Tours.Tour', [
             "tour" => $tour
         ]);

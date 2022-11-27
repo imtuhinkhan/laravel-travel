@@ -12,13 +12,13 @@ class TourCmsController extends Controller
         $tour = TourCMS::find(1);
 
         $tourContent = TourCMS::find(1)->first();
-
         return view('Backend.Admin.CMS.Tour.view', compact('tour','tourContent'));
         
     }
 
     public function update(Request $request, $id)
     {
+
         //update
         $this->validate($request, [
             'title' => 'required',

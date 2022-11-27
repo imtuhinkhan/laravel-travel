@@ -7,7 +7,13 @@
 
     @foreach ($cms as $c)
         <h2 style="text-align: center; padding-bottom:60px">
-            {{ $c->title }}
+            @if(app()->getLocale()=='ru')
+                {{ __($c->title_am) }}
+            @elseif(app()->getLocale()=='hy')
+                {{ __($c->title_ru) }}
+            @else
+                    {{ __($c->title) }}
+            @endif
         </h2>
     @endforeach
 
@@ -20,13 +26,20 @@
             <!--/.gallery-header-->
             <div class="packages-content">
                 <h2 style="text-align: center; ">
-                    {{ __($category->name) }}
+                         {{ __($category->name) }}
+                    
                 </h2>
                 <div class="overview">
 
                     @foreach ($cms as $c)
                         <p>
+                            @if(app()->getLocale()=='ru')
+                            {{ __($c->description_ru) }}
+                            @elseif(app()->getLocale()=='hy')
+                            {{ __($c->description_am) }}
+                            @else
                             {{ __($c->description) }}
+                            @endif
                         </p>
                     @endforeach
                 </div>

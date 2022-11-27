@@ -34,7 +34,6 @@ class ClassicTour extends Controller
 
         $cms = TourCMS::all();
 
-
         return view('Frontend.BasicTours.BasicTours', compact('tour', 'category', 'cms'));
     }
 
