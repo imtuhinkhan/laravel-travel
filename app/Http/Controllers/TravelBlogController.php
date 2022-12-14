@@ -166,8 +166,16 @@ class TravelBlogController extends Controller
         if (isset($locale) && in_array($locale, config('app.available_locales'))) {
             app()->setLocale($locale);
         }
+        if(app()->getLocale()=='hy'){
+            $travelBlogs = TravelAmBlog::with('images')->simplePaginate(9);
+        }
+        elseif(app()->getLocale()=='ru'){
+            $travelBlogs = TravelRuBlog::with('images')->simplePaginate(9);
+        }
+        else{
+            $travelBlogs = TravelBlog::with('images')->simplePaginate(9);
+        }
         $cms = BlogCMS::all();
-        $travelBlogs = TravelBlog::with('images')->simplePaginate(9);
         return view('Frontend.Blogs.Articles', compact('travelBlogs', 'cms'));
     }
 
@@ -179,10 +187,24 @@ class TravelBlogController extends Controller
         if (isset($locale) && in_array($locale, config('app.available_locales'))) {
             app()->setLocale($locale);
         }
-        $travelBlog = TravelBlog::find($id)
-        ->with('images')
-        ->where('id', $id)
-        ->first();
+        if(app()->getLocale()=='hy'){
+            $travelBlog = TravelAmBlog::find($id)
+            ->with('images')
+            ->where('id', $id)
+            ->first();
+        }
+        elseif(app()->getLocale()=='ru'){
+            $travelBlog = TravelRuBlog::find($id)
+            ->with('images')
+            ->where('id', $id)
+            ->first();
+        }
+        else{
+            $travelBlog = TravelBlog::find($id)
+            ->with('images')
+            ->where('id', $id)
+            ->first();
+        }
         
         return view('Frontend.Blogs.Article', compact('travelBlog'));
     }

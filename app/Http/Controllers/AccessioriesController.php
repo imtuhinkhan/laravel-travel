@@ -45,21 +45,13 @@ class AccessioriesController extends Controller
             'type_am'=>'required',
             'total_pax_am'=>'required',
             'free_cancellation_am'=>'required',
-            'one_day_price_am'=>'required',
-            'one_week_price_am'=>'required',
-            'one_month_price_am'=>'required',
-            'images_am' => 'required',
 
             'name_ru' => 'required',
             'description_ru' => 'required',
             'availability_ru'=>'required',
             'type_ru'=>'required',
             'total_pax_ru'=>'required',
-            'free_cancellation_ru'=>'required',
-            'one_day_price_ru'=>'required',
-            'one_week_price_ru'=>'required',
-            'one_month_price_ru'=>'required',
-            'images_ru' => 'required',
+            'free_cancellation_ru'=>'required'
             
         ]);
         $a = Accessiories::create([
@@ -74,7 +66,30 @@ class AccessioriesController extends Controller
             'one_month_price' => $request->one_month_price,
         ]);
 
-       
+
+        $am = AccessioriesAm::create([
+            'name' => $request->name_am,
+            'description' => $request->description_am,
+            'availability' => $request->availability_am,
+            'type' => $request->type_am,
+            'total_pax' => $request->total_pax_am,
+            'free_cancellation' => $request->free_cancellation_am,
+            'one_day_price' => $request->one_day_price,
+            'one_week_price' => $request->one_week_price,
+            'one_month_price' => $request->one_month_price,
+        ]);
+
+        $ru = AccessioriesRu::create([
+            'name' => $request->name_ru,
+            'description' => $request->description_ru,
+            'availability' => $request->availability_ru,
+            'type' => $request->type_ru,
+            'total_pax' => $request->total_pax_ru,
+            'free_cancellation' => $request->free_cancellation_ru,
+            'one_day_price' => $request->one_day_price,
+            'one_week_price' => $request->one_week_price,
+            'one_month_price' => $request->one_month_price,
+        ]);
 
         foreach ($request->file('images') as  $image) {
 
@@ -85,54 +100,8 @@ class AccessioriesController extends Controller
             $image["path"] = "Accessiories/" . $a->id . "/" . $imageName;
             $image->save();
             $a->images()->attach($image->id);
-
-        }
-
-        $am = AccessioriesAm::create([
-            'name' => $request->name_am,
-            'description' => $request->description_am,
-            'availability' => $request->availability_am,
-            'type' => $request->type_am,
-            'total_pax' => $request->total_pax_am,
-            'free_cancellation' => $request->free_cancellation_am,
-            'one_day_price' => $request->one_day_price_am,
-            'one_week_price' => $request->one_week_price_am,
-            'one_month_price' => $request->one_month_price_am,
-        ]);
-
-        foreach ($request->file('images_am') as  $image) {
-
-            $imageName = $image->getClientOriginalName();
-            $image->move("Accessiories/" . $a->id . "/", $imageName);
-            $image = new Image();
-            $image["filename"] = $imageName;
-            $image["path"] = "Accessiories/" . $a->id . "/" . $imageName;
-            $image->save();
-            $a->images()->attach($image->id);
-
-        }
-
-        $ru = AccessioriesRu::create([
-            'name' => $request->name_ru,
-            'description' => $request->description_ru,
-            'availability' => $request->availability_ru,
-            'type' => $request->type_ru,
-            'total_pax' => $request->total_pax_ru,
-            'free_cancellation' => $request->free_cancellation_ru,
-            'one_day_price' => $request->one_day_price_ru,
-            'one_week_price' => $request->one_week_price_ru,
-            'one_month_price' => $request->one_month_price_ru,
-        ]);
-
-        foreach ($request->file('images_ru') as  $image) {
-
-            $imageName = $image->getClientOriginalName();
-            $image->move("Accessiories/" . $a->id . "/", $imageName);
-            $image = new Image();
-            $image["filename"] = $imageName;
-            $image["path"] = "Accessiories/" . $a->id . "/" . $imageName;
-            $image->save();
-            $a->images()->attach($image->id);
+            $am->images()->attach($image->id);
+            $ru->images()->attach($image->id);
 
         }
         return redirect()->back()->with("msg", "Created successfully!")
@@ -237,10 +206,19 @@ class AccessioriesController extends Controller
         if (isset($locale) && in_array($locale, config('app.available_locales'))) {
             app()->setLocale($locale);
         }
-        $a = Accessiories::with('images')
-            ->simplePaginate(9);
+        if(app()->getLocale()=='hy'){
+            $a = AccessioriesAm::with('images')->simplePaginate(9);
 
-            $cms = TourAccessoriesCMS::all();
+        }
+        elseif(app()->getLocale()=='ru'){
+            $a = AccessioriesRu::with('images')->simplePaginate(9);
+        }
+        else{
+            $a = Accessiories::with('images')->simplePaginate(9);
+        }
+        
+
+        $cms = TourAccessoriesCMS::all();
         return view('Frontend.TourAccesories.Accesories', compact('a','cms'));
     }
 
@@ -250,10 +228,21 @@ class AccessioriesController extends Controller
         if (isset($locale) && in_array($locale, config('app.available_locales'))) {
             app()->setLocale($locale);
         }
-        $a = Accessiories::find($id);
+        if(app()->getLocale()=='hy'){
+            $related = AccessioriesAm::inRandomOrder()->simplePaginate(6);
+            $a = AccessioriesAm::find($id);
 
-        $related = Accessiories::inRandomOrder()
-            ->simplePaginate(6);
+        }
+        elseif(app()->getLocale()=='ru'){
+            $related = AccessioriesRu::inRandomOrder()->simplePaginate(6);
+             $a = AccessioriesRu::find($id);
+
+        }
+        else{
+            $related = Accessiories::inRandomOrder()->simplePaginate(6);
+            $a = Accessiories::find($id);
+
+        }
         return view('Frontend.TourAccesories.Accesiorieses', compact('a','related'));
     }
 

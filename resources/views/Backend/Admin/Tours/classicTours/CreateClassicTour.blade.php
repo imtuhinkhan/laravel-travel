@@ -29,8 +29,8 @@
             <div class="card-body">
                 <nav>
                     <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
-                        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Armenian</button>
-                        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">English</button>
+                        <button class="nav-link" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Armenian</button>
+                        <button class="nav-link active" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">English</button>
                         <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Russian</button>
                     </div>
                 </nav>
@@ -38,7 +38,7 @@
                 <form id="tourForm" action="/admin/tours/add" method="POST" enctype="multipart/form-data">
                     {{csrf_field()}}
                 <div class="tab-content p-3 border bg-light" id="nav-tabContent">
-                    <div class="tab-pane fade active show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <div class="tab-pane fade" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                         <div class="form-group row">
                             <label class="col-form-label col-md-2">Tour name</label>
                             <div class="col-md-10">
@@ -64,12 +64,12 @@
                                 <input style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="duration_am">
                             </div>
                         </div>
-                        <div class="form-group row">
+                        {{-- <div class="form-group row">
                             <label class="col-form-label col-md-2">Price (AMD)</label>
                             <div class="col-md-10">
                                 <input style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="price_am">
                             </div>
-                        </div>
+                        </div> --}}
     
                         <div class="form-group row">
                             <label class="col-form-label col-md-2">Start Date</label>
@@ -149,14 +149,14 @@
                             </div>
                         </div>
                        
-                    <div class="form-group row">
+                    {{-- <div class="form-group row">
                             <label class="col-form-label col-md-2">File Input </label>
                             <div class="col-md-10">
                                 <input style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" class="form-control" type="file" name="images_am[]" multiple="">
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
-                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <div class="tab-pane fade  active show" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                         <div class="form-group row">
                             <label class="col-form-label col-md-2">Tour name</label>
                             <div class="col-md-10">
@@ -300,12 +300,12 @@
                                 <input style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="duration_ru">
                             </div>
                         </div>
-                        <div class="form-group row">
+                        {{-- <div class="form-group row">
                             <label class="col-form-label col-md-2">Price(AMD)</label>
                             <div class="col-md-10">
                                 <input style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" type="text" class="form-control" name="price_ru">
                             </div>
-                        </div>
+                        </div> --}}
     
                         <div class="form-group row">
                             <label class="col-form-label col-md-2">Start Date</label>
@@ -386,12 +386,12 @@
                         </div>
                        
     
-                        <div class="form-group row">
+                        {{-- <div class="form-group row">
                             <label class="col-form-label col-md-2">File Input </label>
                             <div class="col-md-10">
                                 <input style="box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;" class="form-control" type="file" name="images_ru[]" multiple="">
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                     

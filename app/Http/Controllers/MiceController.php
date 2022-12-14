@@ -204,8 +204,15 @@ class MiceController extends Controller
         if (isset($locale) && in_array($locale, config('app.available_locales'))) {
             app()->setLocale($locale);
         }
-        $mices = Mice::with('images')
-        ->simplePaginate(9);
+        if(app()->getLocale()=='hy'){
+         $mices = MiceAm::with('images')->simplePaginate(9);
+        }
+        elseif(app()->getLocale()=='ru'){
+         $mices = MiceRu::with('images')->simplePaginate(9);
+        }
+        else{
+         $mices = Mice::with('images')->simplePaginate(9);
+        }
         $cms = MiceCMS::all();
         return view('Frontend.Mice.Mices', compact('mices','cms'));
     }

@@ -147,7 +147,7 @@ class TourController extends Controller
             "destination_id_ru" => "required|integer",
             "home_tour_id_ru" => "required",
             "duration_ru" => "required",
-            "price_ru" => "required",
+            // "price_ru" => "required",
             "one_day_price_ru" => "required",
             "one_week_price_ru" => "required",
             "one_month_price_ru" => "required",
@@ -156,7 +156,7 @@ class TourController extends Controller
             "end_date_ru" => "",
             "description_ru" => "sometimes",
             // "is_Home" => "",
-            "images_ru" => "",
+            // "images_ru" => "",
 
             "name_am" => "required|string",
             "type_id_am" => "",
@@ -165,7 +165,7 @@ class TourController extends Controller
             "destination_id_am" => "required|integer",
             "home_tour_id_am" => "required",
             "duration_am" => "required",
-            "price_am" => "required",
+            // "price_am" => "required",
             "one_day_price_am" => "required",
             "one_week_price_am" => "required",
             "one_month_price_am" => "required",
@@ -174,7 +174,7 @@ class TourController extends Controller
             "end_date_am" => "",
             "description_am" => "sometimes",
             // "is_Home" => "",
-            "images_am" => "",
+            // "images_am" => "",
         ]);
 
         //if $reques->isHome 
@@ -205,21 +205,6 @@ class TourController extends Controller
             ]);
 
 
-            foreach ($request->file('images') as  $image) {
-
-                $imageName = $image->getClientOriginalName();
-                $image->move("Tour/" . $tour->id . "/", $imageName);
-                $image = new Image();
-                $image["filename"] = $imageName;
-                $image["path"] = "Tour/" . $tour->id . "/" . $imageName;
-                $image->save();
-                $tour->images()->attach($image->id);
-            }
-
-
-            DB::commit();
-
-            DB::beginTransaction();
             $tourRu = TourRu::create([
                 "name" => $request->name_ru,
                 "type_id" => $request->type_id_ru,
@@ -228,7 +213,7 @@ class TourController extends Controller
                 "home_tour_id" => $request->home_tour_id_ru,
                 "destination_id" => $request->destination_id_ru,
                 "duration" => $request->duration_ru,
-                "price" => $request->price_ru,
+                "price" => $request->price,
                 "one_day_price" => $request->one_day_price_ru,
                 "one_week_price" => $request->one_week_price_ru,
                 "one_month_price" => $request->one_month_price_ru,
@@ -240,21 +225,6 @@ class TourController extends Controller
             ]);
             
 
-            foreach ($request->file('images_ru') as  $image) {
-
-                $imageName = $image->getClientOriginalName();
-                $image->move("Tour/" . $tourRu->id . "/", $imageName);
-                $image = new Image();
-                $image["filename"] = $imageName;
-                $image["path"] = "Tour/" . $tourRu->id . "/" . $imageName;
-                $image->save();
-                $tourRu->images()->attach($image->id);
-            }
-            DB::beginTransaction();
-
-            DB::commit();
-
-
             $tourAm = TourAm::create([
                 "name" => $request->name_am,
                 "type_id" => $request->type_id_am,
@@ -263,7 +233,7 @@ class TourController extends Controller
                 "home_tour_id" => $request->home_tour_id_am,
                 "destination_id" => $request->destination_id_am,
                 "duration" => $request->duration_am,
-                "price" => $request->price_am,
+                "price" => $request->price,
                 "one_day_price" => $request->one_day_price_am,
                 "one_week_price" => $request->one_week_price_am,
                 "one_month_price" => $request->one_month_price_am,
@@ -274,15 +244,17 @@ class TourController extends Controller
                 // "is_Home" => $request->is_Home,
             ]);
 
-            foreach ($request->file('images_am') as  $image) {
+            foreach ($request->file('images') as  $image) {
 
-                $imageName = $image->getClientOriginalName();
+                $imageName = uniqid().$image->getClientOriginalName();
                 $image->move("Tour/" . $tourAm->id . "/", $imageName);
                 $image = new Image();
                 $image["filename"] = $imageName;
                 $image["path"] = "Tour/" . $tourAm->id . "/" . $imageName;
                 $image->save();
                 $tourAm->images()->attach($image->id);
+                $tourRu->images()->attach($image->id);
+                $tour->images()->attach($image->id);
             }
 
             DB::commit();
@@ -292,6 +264,7 @@ class TourController extends Controller
                 ->with("msg", "Tour added successfully!")
                 ->with("success", true);
         }  catch (Exception $e) {
+            dd($e);
             return redirect()
                 ->back()
                 ->with("msg", $e->getMessage())

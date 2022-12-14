@@ -247,7 +247,15 @@ class TourEventController extends Controller
         if (isset($locale) && in_array($locale, config('app.available_locales'))) {
             app()->setLocale($locale);
         }
-        $tour_events = TourEvent::all();
+        if(app()->getLocale()=='hy'){
+            $tour_events = TourAmEvent::all();
+        }
+        elseif(app()->getLocale()=='ru'){
+            $tour_events = TourRuEvent::all();
+        }
+        else{
+            $tour_events = TourEvent::all();
+        }
         return view('Frontend.Conferences.Conferences', compact('tour_events'));
     }
 
@@ -257,10 +265,26 @@ class TourEventController extends Controller
         if (isset($locale) && in_array($locale, config('app.available_locales'))) {
             app()->setLocale($locale);
         }
-        $tour_event = TourEvent::find($id)
-        ->with('images')
-        ->where('id', $id)
-        ->first();
+
+        if(app()->getLocale()=='hy'){
+            $tour_event = TourAmEvent::find($id)
+            ->with('images')
+            ->where('id', $id)
+            ->first();
+        }
+        elseif(app()->getLocale()=='ru'){
+            $tour_event = TourRuEvent::find($id)
+            ->with('images')
+            ->where('id', $id)
+            ->first();
+        }
+        else{
+            $tour_event = TourEvent::find($id)
+            ->with('images')
+            ->where('id', $id)
+            ->first();
+        }
+        
         
         return view('Frontend.Armenia.ThingsToSeePage', compact('tour_event'));
     }

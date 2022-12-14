@@ -29,14 +29,20 @@
                             <img src="{{ url(asset($b->images->first()->path))}}"
                                 alt="package-place">
                             <div class="" style="font-weight: 500">
-                                {{ __($b->name) }}
+                                @if(app()->getLocale()=='ru')
+                                    {{ __($b->name_ru) }}
+                                @elseif(app()->getLocale()=='hy')
+                                    {{ __($b->name_am) }}
+                                @else
+                                    {{ __($b->name) }}
+                                @endif
                             </div>
 
 
                             <div class="package-btn">
                                 <button class="package-view">
 
-                                   <a href="{{ asset('BrochureFile/'.$b->file_name) }}" style="color: black" download="{{ $b->file_name }}" target="_blank"> {{ __('Download') }}}} </a>
+                                   <a href="{{ asset('BrochureFile/'.$b->file_name) }}" style="color: black" download="{{ $b->file_name }}" target="_blank"> {{ __('Download') }} </a>
                                 </button>
 
                             </div>
