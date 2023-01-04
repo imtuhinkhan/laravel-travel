@@ -585,7 +585,15 @@ Route::get('/MT/{locale?}', [CarAirportController::class, 'getAllCarAirport']);
 
 
 //======frontend send step route ==========
+Route::get('/admin/city',[App\Http\Controllers\CustomTourController::class,'cityList']);
+Route::get('/admin/city/new',[App\Http\Controllers\CustomTourController::class,'cityCreate']);
+Route::post('/admin/city/store',[App\Http\Controllers\CustomTourController::class,'cityStore']);
+Route::get('/admin/city/delete/{id}',[App\Http\Controllers\CustomTourController::class,'cityDelete']);
+Route::get('/admin/city/edit/{id}',[App\Http\Controllers\CustomTourController::class,'cityEdit']);
+Route::post('/admin/city/update',[App\Http\Controllers\CustomTourController::class,'cityUpdate']);
 
+
+Route::post('/admin/custom-tour',[App\Http\Controllers\CustomTourController::class,'customTour']);
 
 
 Route::get('/Rv', function () {

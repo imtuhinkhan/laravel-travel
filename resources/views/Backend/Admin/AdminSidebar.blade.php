@@ -24,6 +24,15 @@
                 </li>
 
                 <li class="submenu">
+                    <a href="#"><i class="fe fe-car"></i> <span> Custom Tours</span> <span class="menu-arrow"></span></a>
+                    <ul style="display: none;">
+
+                        <li><a href="{{ url('/admin/city')}}">City</a></li>
+                        <li><a href="{{ url('/admin/custom-tour')}}">Custom Tour</a></li>
+                    </ul>
+                </li>
+
+                <li class="submenu">
                     <a href="#"><i class="fe fe-layout"></i> <span> Services <span class="menu-arrow"></span></span></a>
                     <ul style="display: none;">
                         {{-- <li><a href="{{ url('/admin/d') }}">Destination</a></li> --}}
